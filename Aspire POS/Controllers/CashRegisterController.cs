@@ -2,14 +2,9 @@
 
 namespace Aspire_POS.Controllers
 {
-    public class LoginController : Controller
+    public class CashRegisterController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Logout()
         {
             return View();
         }
