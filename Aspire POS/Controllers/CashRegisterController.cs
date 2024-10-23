@@ -6,17 +6,15 @@ namespace Aspire_POS.Controllers
     {
         public IActionResult Index()
         {
-            InitializeViewBags();
-            ViewBag.HideSidebar = true;
-            ViewBag.HideFooter = true;
+            InitializeViewBags(true, true, true);
             return View();
         }
 
-        void InitializeViewBags()
+        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
         {
-            ViewBag.HideNavbar = false;
-            ViewBag.HideSidebar = false;
-            ViewBag.HideFooter = false;
+            ViewBag.HideNavbar = _navbar;
+            ViewBag.HideSidebar = _sidebar;
+            ViewBag.HideFooter = _footer;
         }
     }
 }
