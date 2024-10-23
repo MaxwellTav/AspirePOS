@@ -2,3 +2,64 @@
     ViewData["Title"] = "Caja registradora";
 }
 
+<div class="row">
+    <!-- Productos -->
+    <section class="col-lg-7 connectedSortable">
+        <!-- Tabs principales -->
+        <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-0">
+                <ul class="nav nav-tabs" id="custom-tabs-left" role="tablist">
+                    <li class="pt-3 px-1"><h3 class="card-title">PRODUCTOS</h3></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tab1-left" data-toggle="pill" href="#tab1-left-content" role="tab" aria-controls="tab1-left-content" aria-selected="true">Tab 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab2-left" data-toggle="pill" href="#tab2-left-content" role="tab" aria-controls="tab2-left-content" aria-selected="false">Tab 2</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <!-- Contenido del primer tab -->
+                    <div class="tab-pane fade show active" id="tab1-left-content" role="tabpanel" aria-labelledby="tab1-left">
+                        Contenido del Tab 1 en la columna izquierda.
+                    </div>
+                    <!-- Contenido del segundo tab -->
+                    <div class="tab-pane fade" id="tab2-left-content" role="tabpanel" aria-labelledby="tab2-left">
+                        Contenido del Tab 2 en la columna izquierda.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrito -->
+    <section class="col-lg-5 connectedSortable">
+        <!-- Tabs secundarios -->
+        <div class="card card-secondary card-tabs">
+            <div class="card-header p-0 pt-0">
+                <ul class="nav nav-tabs" id="custom-tabs-right" role="tablist">
+                    <li class="pt-3 px-1"><h3 class="card-title">CARRITO</h3></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tab1-right" data-toggle="pill" href="#tab1-right-content" role="tab" aria-controls="tab1-right-content" aria-selected="true">Tab 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab2-right" data-toggle="pill" href="#tab2-right-content" role="tab" aria-controls="tab2-right-content" aria-selected="false">Tab 2</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <!-- Contenido del primer tab en la columna derecha -->
+                    <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right">
+                        Contenido del Tab 1 en la columna derecha.
+                    </div>
+                    <!-- Contenido del segundo tab en la columna derecha -->
+                    <div class="tab-pane fade" id="tab2-right-content" role="tabpanel" aria-labelledby="tab2-right">
+                        Contenido del Tab 2 en la columna derecha.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
