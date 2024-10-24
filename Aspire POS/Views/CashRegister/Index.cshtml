@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Caja (1)";
+    ViewData["Title"] = "Caja | Cerrada";
 }
 
 <body>
@@ -8,13 +8,31 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <div class="card-footer">
+                <div class="card-footer text-center">
                     <div class="input-group">
                         <input type="text" placeholder="CÓDIGO DEL PRODUCTO" class="form-control">
                         <span class="input-group-append">
                             <button type="submit" class="btn btn-secondary"><i class="fas fa-search fa-fw"></i></button>
                         </span>
-                        
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="card-footer text-center p-0 m-0">
+                    <small class="d-block" style="font-size: 10px; margin-top: 0;">modo lector QR</small>
+                    <div class="input-group justify-content-center p-0 m-0">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="card-footer text-center">
+                    <div class="input-group">
+                        <input value="Cajero 01" class="form-control" disabled/>
+                        <input value="Caja 01" class="form-control" disabled/>
                     </div>
                 </div>
             </li>
@@ -86,6 +104,13 @@
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" id="menuCajaButton">
+                    <i class="fas fa-th-large"></i>
+                </a>
+            </li>
+
         </ul>
     </nav>
 
@@ -99,10 +124,10 @@
                     <ul class="nav nav-tabs" id="custom-tabs-left" role="tablist">
                         <li class="pt-3 px-1"><h3 class="card-title">• PRODUCTOS •</h3></li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab1-left" data-toggle="pill" href="#tab1-left-content" role="tab" aria-controls="tab1-left-content" aria-selected="true">Todos ⚫</a>
+                            <a class="nav-link active" id="tab1-left" data-toggle="pill" href="#tab1-left-content" role="tab" aria-controls="tab1-left-content" aria-selected="true">Todos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab2-left" data-toggle="pill" href="#tab2-left-content" role="tab" aria-controls="tab2-left-content" aria-selected="false">Descuento 💲</a>
+                            <a class="nav-link" id="tab2-left" data-toggle="pill" href="#tab2-left-content" role="tab" aria-controls="tab2-left-content" aria-selected="false">Descuento</a>
                         </li>
                     </ul>
                 </div>
@@ -128,12 +153,11 @@
                 <!-- Se eliminó el margen inferior -->
                 <div class="card-header p-0 pt-0">
                     <ul class="nav nav-tabs" id="custom-tabs-right" role="tablist">
-                        <li class="pt-3 px-1"><h3 class="card-title">• CARRITO •</h3></li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab1-right" data-toggle="pill" href="#tab1-right-content" role="tab" aria-controls="tab1-right-content" aria-selected="true">Tab 1</a>
+                            <a class="nav-link active" id="tab1-right" data-toggle="pill" href="#tab1-right-content" role="tab" aria-controls="tab1-right-content" aria-selected="true">Carrito</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab2-right" data-toggle="pill" href="#tab2-right-content" role="tab" aria-controls="tab2-right-content" aria-selected="false">Tab 2</a>
+                            <a class="nav-link" id="tab2-right" data-toggle="pill" href="#tab2-right-content" role="tab" aria-controls="tab2-right-content" aria-selected="false">Pendientes</a>
                         </li>
                     </ul>
                 </div>
@@ -152,5 +176,55 @@
             </div>
         </section>
     </div>
-
 </body>
+
+<script>
+    document.getElementById('menuCajaButton').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Menú del cajero',
+            html: `
+                        <div style="text-align: left;">
+                            <div class="info-text"><strong>Hora de inicio de la jornada:</strong> 08:00 AM</div>
+                            <div class="info-text"><strong>Órdenes realizadas:</strong> 12</div>
+                            <div class="info-text"><strong>Órdenes pendientes:</strong> 5</div>
+                            <div class="info-text"><strong>Ventas totales:</strong> $500</div>
+                            <div class="info-text"><strong>Código de la caja:</strong> C123</div>
+                            <div class="info-text"><strong>Nombre del cajero:</strong> Juan Pérez</div>
+                            <div class="info-text"><strong>Cantidad de efectivo en la caja:</strong> $300</div>
+                        </div>
+                        <div class="btn-menu-container">
+                            <button id="descargarReporte" class="btn btn-primary btn-menu">Descargar Reporte</button>
+                            <button id="verTodasOrdenes" class="btn btn-primary btn-menu">Ver Todas las Órdenes</button>
+                            <button id="irALogin" class="btn btn-secondary btn-menu">Cierre de sesión</button>
+                            <button id="arqueoCaja" class="btn btn-warning btn-menu">Arqueo</button>
+                            <button id="cierreCaja" class="btn btn-danger btn-menu">Cierre de Caja</button>
+                        </div>
+                    `,
+            showCloseButton: true,
+            showConfirmButton: false
+        });
+
+        // Agregar eventos a los botones
+        document.getElementById('descargarReporte').addEventListener('click', function () {
+            Swal.fire('Reporte descargado', '', 'success');
+        });
+
+        document.getElementById('verTodasOrdenes').addEventListener('click', function () {
+            Swal.fire('Mostrando todas las órdenes', '', 'info');
+        });
+
+        document.getElementById('arqueoCaja').addEventListener('click', function () {
+            Swal.fire('Realizando arqueo de caja...', '', 'warning');
+        });
+
+        document.getElementById('cierreCaja').addEventListener('click', function () {
+            Swal.fire('Cerrando la caja...', '', 'error');
+        });
+
+        document.getElementById('irALogin').addEventListener('click', function () {
+            window.location.href = '@Url.Action("Index", "Login")';
+        });
+    });
+</script>
