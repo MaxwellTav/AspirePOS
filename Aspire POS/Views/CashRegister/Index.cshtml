@@ -3,6 +3,22 @@
 }
 
 <body>
+    <style>
+        .control-group {
+            display: flex;
+            align-items: center;
+            width: auto;
+        }
+
+        .quantity-input {
+            width: 70px;
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 0.3rem;
+            margin: 0 5px;
+        }
+    </style>
+
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -150,7 +166,6 @@
         <section class="col-lg-5 connectedSortable">
             <!-- Tabs secundarios -->
             <div class="card card-secondary card-tabs" style="margin-bottom: 0;">
-                <!-- Se eliminó el margen inferior -->
                 <div class="card-header p-0 pt-0">
                     <ul class="nav nav-tabs" id="custom-tabs-right" role="tablist">
                         <li class="nav-item">
@@ -163,13 +178,82 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
-                        <!-- Contenido del primer tab en la columna derecha -->
-                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right">
-                            Contenido del Tab 1 en la columna derecha.
+                        <!-- Contenido del primer tab en la columna derecha (Carrito) -->
+                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right" style="max-height: 400px; overflow-y: auto;">
+                            <!-- Item -->
+                            @for (int i = 0; i < 7; i++)
+                            {
+                                <div class="product-item d-flex align-items-center mb-3">
+                                    <img class="img-thumbnail mr-3" style="width: 75px; height: 75px;">
+                                    <div style="flex: 1;">
+                                        @* <h6 class="mb-0"><strong>Producto de Ejemplo</strong> <span class="badge badge-warning">Editado</span></h6> *@
+                                        <p class="mb-1">Descripción breve del producto.</p>
+                                        Unidad <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled />
+                                        Total <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled />
+                                    </div>
+                                    <!-- Contenedor reducido a la derecha -->
+                                    <div class="control-group ml-auto">
+                                        <button class="btn btn-danger mr-1"><i class="fas fa-eraser"></i></button>
+                                        <button class="btn btn-secondary"><i class="fas fa-minus"></i></button>
+                                        <input type="number" class="form-control quantity-input" placeholder="1" min="1">
+                                        <button class="btn btn-success"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                            }
                         </div>
-                        <!-- Contenido del segundo tab en la columna derecha -->
-                        <div class="tab-pane fade" id="tab2-right-content" role="tabpanel" aria-labelledby="tab2-right">
-                            Contenido del Tab 2 en la columna derecha.
+                        <!-- Contenido del segundo tab en la columna derecha (Pendientes) -->
+                        <div class="tab-pane fade" id="tab2-right-content" role="tabpanel" aria-labelledby="tab2-right" style="max-height: 400px; overflow-y: auto;">
+                            <!-- Item -->
+                            @for (int i = 0; i < 7; i++)
+                            {
+                                <div class="product-item d-flex align-items-center mb-3">
+                                    <img class="img-thumbnail mr-3" style="width: 75px; height: 75px;">
+                                    <div style="flex: 1;">
+                                        <h6 class="mb-0"><strong>Pedido de ejemplo #@(i + 1)</strong></h6>
+                                        <p class="mb-1">Descripción breve del producto más detallada y continúa con una descripción breve del producto más detallada.</p>
+                                        <span class="badge badge-warning">Editado</span>
+                                        <span class="badge badge-danger">Pendiente</span>
+                                        <span class="badge badge-secondary">12:00 Am | Lunes 01/01/20XX</span>
+                                    </div>
+                                    <!-- Contenedor reducido a la derecha -->
+                                    <div class="control-group ml-auto">
+                                        <button class="btn btn-danger btn-lg mr-1"><i class="fas fa-minus"></i></button>
+                                        <button class="btn btn-primary btn-lg mr-1"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <hr class="my-2">
+                            }
+                        </div>
+
+
+                        <br />
+                        <!-- Resumen de pago -->
+                        <div class="card card-info">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mt-3">
+                                    <h3>Sub-Total:<strong> $9.99</strong></h3>
+                                    <h2><span class="badge badge-secondary">Total:<strong> $19.99</strong></span></h2>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <a class="btn btn-app bg-danger">
+                                        <span class="badge bg-teal">10</span>
+                                        <i class="fas fa-trash"></i> Limpiar carro actual
+                                    </a>
+                                    <a class="btn btn-app bg-info">
+                                        <i class="fas fa-tag"></i> Descuentos y deducciones
+                                    </a>
+                                    <a class="btn btn-app bg-warning">
+                                        <i class="fas fa-truck"></i> Envío
+                                    </a>
+                                    <a class="btn btn-app bg-primary">
+                                        <i class="fas fa-save"></i> Guardar el carrito
+                                    </a>
+                                    <a class="btn btn-app bg-success" style="width: 100%; max-width: 120px;">
+                                        <i class="fas fa-dollar-sign"></i> Procesar y Pagar
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
