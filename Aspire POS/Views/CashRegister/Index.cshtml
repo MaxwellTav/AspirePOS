@@ -145,20 +145,43 @@
                         <li class="nav-item">
                             <a class="nav-link" id="tab2-left" data-toggle="pill" href="#tab2-left-content" role="tab" aria-controls="tab2-left-content" aria-selected="false">Descuento</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab3-left" data-toggle="pill" href="#tab3-left-content" role="tab" aria-controls="tab3-left-content" aria-selected="false">Limitados</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
                         <!-- Contenido del primer tab -->
-                        <div class="tab-pane fade show active" id="tab1-left-content" role="tabpanel" aria-labelledby="tab1-left">
-                            Contenido del Tab 1 en la columna izquierda.
+                        <div class="tab-pane fade show active" id="tab1-left-content" role="tabpanel" aria-labelledby="tab1-left" style="max-height: 555px; overflow-y: auto;">
+                            <div class="row">
+                                @for (int i = 0; i < 50; i++)
+                                {
+                                    <div class="col-6 col-sm-2 mb-2 d-flex justify-content-center">
+                                        <button class="card btn border-1" style="height: 150px; width: 160px; cursor: pointer;" onclick="verProducto()">
+                                            <div class="card-body text-center p-3">
+                                                <img src="https://via.placeholder.com/100" class="card-img-top" alt="Producto @i" style="height: 70px; object-fit: cover; margin-bottom: 5px;">
+                                                <h6 class="mb-1" style="font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Producto @(i + 1)</h6>
+                                                <p class="mb-0" style="font-size: 0.9rem;">$9.99</p>
+                                            </div>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
                         </div>
+
                         <!-- Contenido del segundo tab -->
                         <div class="tab-pane fade" id="tab2-left-content" role="tabpanel" aria-labelledby="tab2-left">
                             Contenido del Tab 2 en la columna izquierda.
                         </div>
+
+                        <!-- Contenido del segundo tab -->
+                        <div class="tab-pane fade" id="tab3-left-content" role="tabpanel" aria-labelledby="tab3-left">
+                            Contenido del Tab 3 en la columna izquierda.
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -179,7 +202,7 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <!-- Contenido del primer tab en la columna derecha (Carrito) -->
-                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right" style="max-height: 400px; overflow-y: auto;">
+                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right" style="max-height: 325px; overflow-y: auto;">
                             <!-- Item -->
                             @for (int i = 0; i < 7; i++)
                             {
@@ -263,6 +286,10 @@
 </body>
 
 <script>
+    function verProducto() {
+        Swal.fire('Producto seleccionado', 'Aquí puedes agregar detalles del producto', 'info');
+    }
+
     document.getElementById('menuCajaButton').addEventListener('click', function (event) {
         event.preventDefault();
 
