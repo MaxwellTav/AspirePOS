@@ -2,11 +2,11 @@
 
 namespace Aspire_POS.Controllers
 {
-    public class LoginController : Controller
+    public class StoreController : Controller
     {
         public IActionResult Index()
         {
-            InitializeViewBags(true, true, true);
+            InitializeViewBags(false, false, false);
             return View();
         }
 

@@ -45,23 +45,27 @@
 
 <body>
     <!-- Navbar -->
-            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    @if (!ViewBag.HideSidebar)
-                    { <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-th-large"></i></a> }
-                    else
-                    { <a class="nav-link" data-widget="pushmenu" href="#" role="button" hidden><i class="fas fa-th-large"></i></a> }
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                @if (!ViewBag.HideSidebar)
+                {
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-th-large"></i></a>
+                }
+                else
+                {
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button" hidden><i class="fas fa-th-large"></i></a>
+                }
 
-                </li>
-                @* <li class="nav-item d-none d-sm-inline-block">
-                .
+            </li>
+            @* <li class="nav-item d-none d-sm-inline-block">
+            .
             </li>*@
-            </ul>
+        </ul>
 
 
-            @if (!ViewBag.HideNavbar)
+        @if (!ViewBag.HideNavbar)
         {
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -131,86 +135,73 @@
                 </li>
             </ul>
         }
-        </nav>
-    
+    </nav>
+
 
     <!-- Main Sidebar Container -->
     @if (!ViewBag.HideSidebar)
     {
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="@Url.Action("Index", "Home")" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Aspire POS</span>
-        </a>
+            <!-- Brand Logo -->
+            <a href="@Url.Action("Index", "Home")" class="brand-link">
+                <span class="brand-text font-weight-bold text-center">Aspire (Point Of Sell)</span>
+            </a>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info d-flex align-items-center justify-content-between" style="width: 100%;">
-                    <a @* href="" *@ class="d-block">Usuario</a>
-                    <a href="@Url.Action("Index", "Login")" class="btn btn-outline-light btn-sm ml-auto" style="padding: 2px 8px;">
-                        <i class="fas fa-lock"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info d-flex align-items-center justify-content-between" style="width: 100%;">
+                        <a @* href="" *@ class="d-block">Usuario de ejemplo</a>
+                        <a href="@Url.Action("Index", "Login")" class="btn btn-outline-light btn-sm ml-auto" style="padding: 2px 8px;">
+                            <i class="fas fa-lock"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                 <li class="nav-item">
-                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                         <p>
-                             Métricas
-                             @* <span class="right badge badge-danger">New</span> *@
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                         <i class="nav-icon fas fa-warehouse"></i>
-                         <p>
-                             Tienda
-                             <span class="right badge badge-danger">New</span>
-                         </p>
-                     </a>
-                 </li>
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Métricas
+                                    @* <span class="right badge badge-danger">New</span> *@
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Store")" class="nav-link">
+                                <i class="fas fa-store nav-icon"></i>
+                                <p>
+                                    Tiendas
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Caja
+                                    Cajas
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            Ver caja
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                                    <a href="@Url.Action("AdminCashier", "CashRegister")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Administrar cajas
@@ -221,34 +212,61 @@
                                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Consulta de cajas
+                                            Ver sesiones
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Iniciar caja admin
                                         </p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                 @* <li class="nav-item">
-                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                         <i class="nav-icon fas fa-th"></i>
-                         <p>
-                             Cajas
-                         </p>
-                     </a>
-                 </li> *@
-                 <li class="nav-item">
-                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                         <i class="nav-icon fas fa-wrench"></i>
-                         <p>
-                             Configuración
-                         </p>
-                     </a>
-                 </li>
-             </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Personal
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Administrar personal
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Ver personal
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                                <i class="nav-icon fas fa-wrench"></i>
+                                <p>
+                                    Configuración
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
     }
 
     @* ________________________ *@
@@ -258,7 +276,7 @@
     <!-- Main Footer -->
     @if (!ViewBag.HideFooter)
     {
-            <footer class="main-footer">
+        <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 ...
@@ -327,37 +345,37 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
-    window.addEventListener('load', function () {
-        // Ocultar preloader
-        const preloader = document.querySelector('.preloader');
-        preloader.style.transition = 'opacity 1s ease';
-        preloader.style.opacity = '0';
+        window.addEventListener('load', function () {
+            // Ocultar preloader
+            const preloader = document.querySelector('.preloader');
+            preloader.style.transition = 'opacity 1s ease';
+            preloader.style.opacity = '0';
 
-        setTimeout(function () {
-            preloader.style.display = 'none';
-        }, 1000);
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 1000);
 
-        // Verificar si ViewBag.HideSidebar está en true para ocultar el sidebar
-        var hideSidebar = @Json.Serialize(ViewBag.HideSidebar ?? false);
+            // Verificar si ViewBag.HideSidebar está en true para ocultar el sidebar
+            var hideSidebar = @Json.Serialize(ViewBag.HideSidebar ?? false);
 
-        if (hideSidebar) {
-            var pushMenuButton = document.querySelector('[data-widget="pushmenu"]');
-            if (pushMenuButton) {
-                pushMenuButton.click(); // Simula un clic en el botón del sidebar para ocultarlo
+            if (hideSidebar) {
+                var pushMenuButton = document.querySelector('[data-widget="pushmenu"]');
+                if (pushMenuButton) {
+                    pushMenuButton.click(); // Simula un clic en el botón del sidebar para ocultarlo
+                }
             }
-        }
 
-        // Verificar si ViewBag.HideNavbar está en true para ocultar el navbar
-        var hideNavbar = @Json.Serialize(ViewBag.HideNavbar ?? false);
+            // Verificar si ViewBag.HideNavbar está en true para ocultar el navbar
+            var hideNavbar = @Json.Serialize(ViewBag.HideNavbar ?? false);
 
-        if (hideNavbar) {
-            var navbar = document.querySelector('.main-header');
-            if (navbar) {
-                navbar.style.display = 'none'; // Oculta el navbar
+            if (hideNavbar) {
+                var navbar = document.querySelector('.main-header');
+                if (navbar) {
+                    navbar.style.display = 'none'; // Oculta el navbar
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 
 </body>

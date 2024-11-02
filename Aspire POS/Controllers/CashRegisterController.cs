@@ -10,6 +10,12 @@ namespace Aspire_POS.Controllers
             return View();
         }
 
+        public IActionResult AdminCashier()
+        {
+            InitializeViewBags(false, false, false);
+            return View();
+        }
+
         /// <summary>
         /// Automáticamente oculta o muestra un componente de la página.
         /// </summary>
