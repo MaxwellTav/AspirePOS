@@ -16,6 +16,12 @@ namespace Aspire_POS.Controllers
             return View();
         }
 
+        public IActionResult SeeSesions()
+        {
+            InitializeViewBags(false, false, false);
+            return View();
+        }
+
         /// <summary>
         /// Automáticamente oculta o muestra un componente de la página.
         /// </summary>
