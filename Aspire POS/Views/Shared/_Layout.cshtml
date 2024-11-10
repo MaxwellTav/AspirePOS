@@ -230,34 +230,25 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="@Url.Action("Index", "Staff")" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Personal
-                                    <i class="right fas fa-angle-left"></i>
+                                    <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            Administrar personal
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>
-                                            Ver personal
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
+                            <a href="@Url.Action("Index", "Calendar")" class="nav-link">
+                                <i class="nav-icon fas fa-calendar"></i>
+                                <p>
+                                    Eventos
+                                    @* <span class="right badge badge-danger">New</span> *@
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Settings")" class="nav-link">
                                 <i class="nav-icon fas fa-wrench"></i>
                                 <p>
                                     Configuración
