@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -44,6 +46,11 @@
 
     <!-- fullCalendar -->
     <link rel="stylesheet" href="../plugins/fullcalendar/main.css">
+
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="../../plugins/codemirror/codemirror.css">
+    <link rel="stylesheet" href="../../plugins/codemirror/theme/monokai.css">
+
 </head>
 
 <body>
@@ -255,6 +262,19 @@
                                 </p>
                             </a>
                         </li>
+
+                        @if (env.IsDevelopment())
+                        {
+                            <li class="nav-item">
+                                <a href="~/index.html" class="nav-link">
+                                    <i class="nav-icon fas fa-box"></i>
+                                    <p>
+                                        Tema
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -336,6 +356,26 @@
     <!-- Sweet Alert 2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- CodeMirror -->
+    <script src="../../plugins/codemirror/codemirror.js"></script>
+    <script src="../../plugins/codemirror/mode/css/css.js"></script>
+    <script src="../../plugins/codemirror/mode/sql/sql.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        let editor = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            mode: "sql",
+            theme: "monokai",
+            lineNumbers: true,
+            matchBrackets: true,
+            autoCloseBrackets: true
+        });
+
+        editor.setSize("100%", "400px");
+});
+
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
@@ -370,7 +410,5 @@
             }
         });
     </script>
-
-
 </body>
 </html>

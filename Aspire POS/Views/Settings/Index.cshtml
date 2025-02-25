@@ -15,7 +15,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Página inicial</h1>
+                            <h1>Configuración</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -31,6 +31,74 @@
             <section class="content">
                 <div class="container-fluid">
                     <!-- /Starter Page -->
+                    <div>
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">Base de datos</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Fuente de la Base de datos</label>
+                                                <select class="custom-select">
+                                                    <option>WooComerce</option>
+                                                    <option>Sql Server</option>
+                                                    <option>Custom DB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label>Ubicación de la base de datos</label>
+                                            <input class="form-control" type="text" placeholder="LocalDB=MyDb;"/>
+                                        </div>
+
+                                        <div>
+                                            <!-- ./row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                Manual DB Code
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-1">
+<textarea id="codeMirrorDemo" class="p-lg-4">
+    CREATE DATABASE MyCustomDB;
+
+    USE MyCustomDB;
+
+    CREATE TABLE PersonsTable (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255));
+
+    SELECT * FROM PersonsTable;
+</textarea>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline-primary">Ejecutar <i class="nav-icon fas fa-play"></i></button>
+                <button class="btn btn-outline-secondary">Ejecutar Selección <i class="nav-icon fas fa-play"></i>〰</button>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-->
+      </div>
+      <!-- ./row -->
+                                        </div>
+                                    </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
                     <!-- /Starter Page -->
                 </div><!-- /.container-fluid -->
             </section>
