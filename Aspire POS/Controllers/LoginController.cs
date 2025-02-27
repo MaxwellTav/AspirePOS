@@ -22,5 +22,11 @@ namespace Aspire_POS.Controllers
             ViewBag.HideSidebar = _sidebar;
             ViewBag.HideFooter = _footer;
         }
+
+        public IActionResult ConfigureKeys()
+        {
+            InitializeViewBags(true, true, true);
+            return View();
+        }
     }
 }
