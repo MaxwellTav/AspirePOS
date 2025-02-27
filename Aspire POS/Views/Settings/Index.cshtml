@@ -1,16 +1,25 @@
-﻿@{
+﻿@model ConfigModel
+@{
     ViewData["Title"] = "Configuración";
 }
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let form = document.getElementById("configForm");
+            let submitBtn = document.getElementById("saveChangesBtn");
+
+            form.addEventListener("input", function () {
+                submitBtn.disabled = false; // Habilita el botón si hay cambios
+            });
+        });
+    </script>
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -24,87 +33,73 @@
                             </ol>
                         </div>
                     </div>
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
 
-            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <!-- /Starter Page -->
                     <div>
                         <div class="card card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Base de datos</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <!-- select -->
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    <h3 class="card-title">Opciones Básicas</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- FORMULARIO -->
+                                    <form id="configForm" asp-action="UpdateConfig" method="post">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label>Fuente de la Base de datos</label>
                                                 <select class="custom-select">
-                                                    <option>WooComerce</option>
-                                                    <option>Sql Server</option>
-                                                    <option>Custom DB</option>
+                                                    <option>WooCommerce</option>
+                                                    <option disabled="disabled">Sql Server (No Disponible)</option>
+                                                    <option disabled="disabled">Wix eCommerce (No Disponible)</option>
+                                                    <option disabled="disabled">Adobe Commerce (No Disponible)</option>
+                                                    <option disabled="disabled">OpenCart (No Disponible)</option>
+                                                    <option disabled="disabled">PrestaShop (No Disponible)</option>
+                                                    <option disabled="disabled">Sylius (No Disponible)</option>
+                                                    <option disabled="disabled">Shopify (No Disponible)</option>
+                                                    <option disabled="disabled">BigCommerce (No Disponible)</option>
+                                                    <option disabled="disabled">Ecwid (No Disponible)</option>
                                                 </select>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label>Clave del Cliente</label>
+                                                <input class="form-control" type="text" asp-for="HostCredentials.ClientKey" placeholder="ck_a1b2c3d4e5f6..." required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Clave Secreta</label>
+                                                <input class="form-control" type="text" asp-for="HostCredentials.ClientSecret" placeholder="cs_a1b2c3d4e5f6..." autocomplete="off" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Dirección de WooCommerce</label>
+                                                <input class="form-control" type="url" asp-for="HostCredentials.ApiUrl" placeholder="https://example-user-page.hostingersite.com/wp-json/wc/v2" required />
+                                            </div>
                                         </div>
-
-                                        <div class="col-sm-6">
-                                            <label>Ubicación de la base de datos</label>
-                                            <input class="form-control" type="text" placeholder="LocalDB=MyDb;"/>
-                                        </div>
-
-                                        <div>
-                                            <!-- ./row -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Manual DB Code
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body p-1">
-<textarea id="codeMirrorDemo" class="p-lg-4">
-    CREATE DATABASE MyCustomDB;
-
-    USE MyCustomDB;
-
-    CREATE TABLE PersonsTable (
-    PersonID int,
-    LastName varchar(255),
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255));
-
-    SELECT * FROM PersonsTable;
-</textarea>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-outline-primary">Ejecutar <i class="nav-icon fas fa-play"></i></button>
-                <button class="btn btn-outline-secondary">Ejecutar Selección <i class="nav-icon fas fa-play"></i>〰</button>
-            </div>
-          </div>
-        </div>
-        <!-- /.col-->
-      </div>
-      <!-- ./row -->
-                                        </div>
-                                    </div>
+                                    </form>
+                                    <!-- FIN FORMULARIO -->
+                                </div>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+
+                        <div class="card-body">
+                            <button id="saveChangesBtn" class="btn btn-app bg-gradient-info" form="configForm" type="submit" disabled>
+                                <i class="fas fa-check"></i> Aplicar Cambios
+                            </button>
+                        </div>
                     </div>
-                    <!-- /Starter Page -->
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
-            <!-- /.content -->
         </div>
     </div>
-    <!-- ./wrapper -->
 </body>
 </html>

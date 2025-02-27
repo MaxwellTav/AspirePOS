@@ -15,6 +15,7 @@
                 <p class="login-box-msg">Inicie sesión para comenzar</p>
 
                 <form asp-action="Login" asp-controller="Login" method="post">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                     <div class="input-group mb-3">
                         <input asp-for="UserName" class="form-control" placeholder="Usuario">
                         <div class="input-group-append">
@@ -23,8 +24,8 @@
                             </div>
                         </div>
                     </div>
-                    <span asp-validation-for="UserName" class="text-danger"></span>
 
+                    <span asp-validation-for="Password" class="text-danger"></span>
                     <div class="input-group mb-3">
                         <input asp-for="Password" class="form-control" placeholder="Contraseña">
                         <div class="input-group-append">
@@ -33,7 +34,6 @@
                             </div>
                         </div>
                     </div>
-                    <span asp-validation-for="Password" class="text-danger"></span>
 
                     <div class="input-group mb-3">
                         <input asp-for="RememberMe" type="checkbox"> Recordarme

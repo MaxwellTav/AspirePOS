@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire_POS.Controllers
 {
+    [Authorize]
     public class StaffController : Controller
     {
         public IActionResult Index()

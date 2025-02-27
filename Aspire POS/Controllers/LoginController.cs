@@ -50,10 +50,11 @@ namespace Aspire_POS.Controllers
 
             if (result.Succeeded)
             {
+                
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos.");
+            ModelState.AddModelError(nameof(model.Password), "Contraseña incorrecta");
             return View("Index", model);
         }
 

@@ -2,10 +2,10 @@
 
 public class LoginViewModel
 {
-    [Required(ErrorMessage = "El usuario es obligatorio.")]
+    [Required(ErrorMessage = "El Usuario es obligatorio")]
     public string UserName { get; set; }
 
-    [Required(ErrorMessage = "La contraseña es obligatoria.")]
+    [Required(ErrorMessage = "La Contraseña es obligatoria")]
     [DataType(DataType.Password)]
     public string Password { get; set; }
 
