@@ -9,6 +9,7 @@ namespace Aspire_POS.Models
         public string ClientKey { get; set; }
         public string ClientSecret { get; set; }
         public string ApiUrl { get; set; }
+        public string TokenEndpoint { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 

@@ -84,6 +84,11 @@
                                                 <label>Dirección de WooCommerce</label>
                                                 <input class="form-control" type="url" asp-for="HostCredentials.ApiUrl" placeholder="https://example-user-page.hostingersite.com/wp-json/wc/v2" required />
                                             </div>
+
+                                            <div class="form-group">
+                                                <label>Bearer Token</label>
+                                                <input class="form-control" type="text" asp-for="HostCredentials.TokenEndpoint" placeholder="ab1C0s2Es564Sw45sas84523..." required />
+                                            </div>
                                         </div>
                                     </form>
                                     <!-- FIN FORMULARIO -->

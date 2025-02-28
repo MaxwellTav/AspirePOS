@@ -35,6 +35,7 @@ namespace Aspire_POS.Services
                 hostCredentials.ClientKey = model.HostCredentials.ClientKey;
                 hostCredentials.ClientSecret = model.HostCredentials.ClientSecret;
                 hostCredentials.ApiUrl = model.HostCredentials.ApiUrl;
+                hostCredentials.TokenEndpoint = model.HostCredentials.TokenEndpoint;
 
                 await _context.SaveChangesAsync();
             }
