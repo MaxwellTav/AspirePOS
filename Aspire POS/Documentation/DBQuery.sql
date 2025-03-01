@@ -56,10 +56,10 @@ Insert Into UserDBSources
 Values
 ('6b9ccf8e-2463-451c-ac11-53711a17997b', 2, 0);
 
+
 CREATE TABLE HostCredentials (
     Id INT PRIMARY KEY IDENTITY(1,1), -- Identificador único
     UserId NVARCHAR(450) NOT NULL, -- Usuario dueño de la clave
-	
     ClientKey NVARCHAR(255) NOT NULL, -- Clave del cliente
     ClientSecret NVARCHAR(255) NOT NULL, -- Clave secreta del cliente
     ApiUrl NVARCHAR(500) NOT NULL, -- URL del host
@@ -69,16 +69,16 @@ CREATE TABLE HostCredentials (
     CONSTRAINT FK_HostCredentials_User FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
 );
 
+
 INSERT INTO HostCredentials (UserId, ClientKey, ClientSecret, ApiUrl, TokenEndpoint, CreatedAt)
 VALUES 
-    ('6b9ccf8e-2463-451c-ac11-53711a17997b', 
-	'ck_c4d1d2b150882f2ab139922dd0d50c294e063721', 
-    'cs_3039c5c62cc03f3a872ba1389f1a757c551a6602', 
-    'https://yellow-whale-846955.hostingersite.com/wp-json/',
-	'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3llbGxvdy13aGFsZS04NDY5NTUuaG9zdGluZ2Vyc2l0ZS5jb20iLCJpYXQiOjE3NDA3MTUxNzMsIm5iZiI6MTc0MDcxNTE3MywiZXhwIjoxNzQxMzE5OTczLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.Vjcd067WcWNIQA8bqzuXR8ox-pfxaA1Sw19OVO0UXlo',
+    ('Hacer un select a la tabla AspNetUsers y tomar el ID', 
+	'ck_a1a2a3a4a5a6a7', 
+    'cs_1a2a3a4a5a6a7a', 
+    'https://mihost.hostingersite.com/wp-json/',
+	'(Esto es un ejemplo) s1s2s2s3a1d1w5w1w5w7w7w7w',
     GETDATE());
 
-	Select * From HostCredentials
 
 CREATE TABLE AuditLogs (
     Id INT PRIMARY KEY IDENTITY(1,1), -- Identificador único

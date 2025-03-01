@@ -7,15 +7,12 @@
         .control-group {
             display: flex;
             align-items: center;
-            width: auto;
         }
 
         .quantity-input {
             width: 70px;
             text-align: center;
-            font-size: 1.2rem;
-            padding: 0.3rem;
-            margin: 0 5px;
+            font-size: 1rem;
         }
     </style>
 
@@ -130,9 +127,9 @@
         </ul>
     </nav>
 
-    <div class="row">
+    <div class="row" style="overflow: hidden; margin: 0; overflow-x: hidden; margin: 0; padding: 0;">
         <!-- Productos -->
-        <section class="col-lg-7 connectedSortable">
+        <section class="col-lg-7">
             <!-- Tabs principales -->
             <div class="card card-primary card-tabs" style="margin-bottom: 0;">
                 <!-- Se eliminó el margen inferior -->
@@ -153,12 +150,12 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <!-- Contenido del primer tab -->
-                        <div class="tab-pane fade show active" id="tab1-left-content" role="tabpanel" aria-labelledby="tab1-left" style="max-height: 555px; overflow-y: auto;">
+                        <div class="tab-pane fade show active" id="tab1-left-content" role="tabpanel" aria-labelledby="tab1-left" style="max-height: 450px; overflow-y: auto; overflow-x: hidden;">
                             <div class="row">
                                 @for (int i = 0; i < 50; i++)
                                 {
-                                    <div class="col-6 col-sm-2 mb-2 d-flex justify-content-center">
-                                        <button class="card btn border-1" style="height: 150px; width: 160px; cursor: pointer;" onclick="verProducto()">
+                                    <div class="col-6 col-sm-3 mb-2 d-flex justify-content-center">
+                                        <button class="card btn border-1" style="height: 170px; width: 150px; cursor: pointer;" onclick="verProducto()">
                                             <div class="card-body text-center p-3">
                                                 <img src="https://via.placeholder.com/100" class="card-img-top" alt="Producto @i" style="height: 70px; object-fit: cover; margin-bottom: 5px;">
                                                 <h6 class="mb-1" style="font-size: 1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Producto @(i + 1)</h6>
@@ -186,7 +183,7 @@
         </section>
 
         <!-- Carrito -->
-        <section class="col-lg-5 connectedSortable">
+        <section class="col-lg-5" style="overflow-x: hidden;">
             <!-- Tabs secundarios -->
             <div class="card card-secondary card-tabs" style="margin-bottom: 0;">
                 <div class="card-header p-0 pt-0">
@@ -197,12 +194,20 @@
                         <li class="nav-item">
                             <a class="nav-link" id="tab2-right" data-toggle="pill" href="#tab2-right-content" role="tab" aria-controls="tab2-right-content" aria-selected="false">Pendientes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                Carro #123
+                                <button class="btn-sm btn-danger"><i class="fas fa-trash"></i> Limpiar</button>
+                                <button class="btn-sm btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
                 <div class="card-body">
                     <div class="tab-content">
                         <!-- Contenido del primer tab en la columna derecha (Carrito) -->
-                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right" style="max-height: 325px; overflow-y: auto;">
+                        <div class="tab-pane fade show active" id="tab1-right-content" role="tabpanel" aria-labelledby="tab1-right" style="max-height: 311px; overflow-y: auto;">
                             <!-- Item -->
                             @for (int i = 0; i < 7; i++)
                             {
@@ -211,22 +216,21 @@
                                     <div style="flex: 1;">
                                         @* <h6 class="mb-0"><strong>Producto de Ejemplo</strong> <span class="badge badge-warning">Editado</span></h6> *@
                                         <p class="mb-1">Descripción breve del producto.</p>
-                                        Unidad <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled />
-                                        Total <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled />
+                                        <div>Unidad <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled /></div>
+                                        <div>Total <input type="number" class="quantity-input" style="width: 90px" placeholder="$25.00" disabled /></div>
                                     </div>
                                     <!-- Contenedor reducido a la derecha -->
                                     <div class="control-group ml-auto">
-                                        <button class="btn btn-danger mr-1"><i class="fas fa-times"></i></button>
-                                        <button class="btn btn-secondary"><i class="fas fa-minus"></i></button>
+                                        <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
                                         <input type="number" class="form-control quantity-input" placeholder="1" min="1">
-                                        <button class="btn btn-success"><i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-danger mr-1"><i class="fas fa-times"></i></button>
                                     </div>
                                 </div>
                                 <hr class="my-2">
                             }
                         </div>
                         <!-- Contenido del segundo tab en la columna derecha (Pendientes) -->
-                        <div class="tab-pane fade" id="tab2-right-content" role="tabpanel" aria-labelledby="tab2-right" style="max-height: 400px; overflow-y: auto;">
+                        <div class="tab-pane fade" id="tab2-right-content" role="tabpanel" aria-labelledby="tab2-right" style="max-height: 311px; overflow-y: auto;">
                             <!-- Item -->
                             @for (int i = 0; i < 7; i++)
                             {
@@ -252,25 +256,20 @@
 
                         <br />
                         <!-- Resumen de pago -->
-                        <div class="card card-info">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mt-3">
-                                    <h3>Sub-Total:<strong> $9.99</strong></h3>
-                                    <h2><span class="badge badge-secondary">Total:<strong> $19.99</strong></span></h2>
+                        <div class="card">
+                            <div>
+                                <div>
+                                    <h2>
+                                        <span class="badge badge-secondary">Sub-Total:<strong> $19.99</strong></span>
+                                        <span class="badge badge-primary">Total:<strong> $19.99</strong></span>
+                                    </h2>
                                 </div>
-                                <div class="d-flex justify-content-between mb-3">
-                                    <a class="btn btn-app bg-danger">
-                                        <span class="badge bg-teal">10</span>
-                                        <i class="fas fa-trash"></i> Limpiar carro actual
-                                    </a>
+                                <div>
                                     <a class="btn btn-app bg-info">
                                         <i class="fas fa-tag"></i> Descuentos y deducciones
                                     </a>
                                     <a class="btn btn-app bg-warning">
                                         <i class="fas fa-truck"></i> Envío
-                                    </a>
-                                    <a class="btn btn-app bg-primary">
-                                        <i class="fas fa-save"></i> Guardar el carrito
                                     </a>
                                     <a class="btn btn-app bg-success" style="width: 100%; max-width: 120px;">
                                         <i class="fas fa-dollar-sign"></i> Procesar y Pagar
