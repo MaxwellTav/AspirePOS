@@ -26,7 +26,7 @@ namespace Aspire_POS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateConfig(ConfigModel model)
+        public async Task<IActionResult> UpdateConfig(ConfigMainModel model)
         {
             if (!ModelState.IsValid)
             {

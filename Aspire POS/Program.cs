@@ -15,11 +15,14 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<ConfigService>();
+builder.Services.AddScoped<StaffService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 

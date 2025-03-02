@@ -1,35 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Aspire_POS.Services;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Aspire_POS.Controllers
 {
     public class LoginController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ConfigService _configService;
+        private readonly IMemoryCache _cache;
 
-        public LoginController(SignInManager<IdentityUser> signInManager)
+        public LoginController(SignInManager<IdentityUser> signInManager, ConfigService configService, IMemoryCache cache)
         {
             _signInManager = signInManager;
+            _configService = configService;
+            _cache = cache;
         }
 
         public IActionResult Index()
         {
             InitializeViewBags(true, true, true);
             return View(new LoginViewModel());
-        }
-
-        /// <summary>
-        /// Automáticamente oculta o muestra un componente de la página.
-        /// </summary>
-        /// <param name="_navbar">Esconderá la barra de navegación superior.</param>
-        /// <param name="_sidebar">Esconderá la barra lateral, la cuál está el menú y demás opciones.</param>
-        /// <param name="_footer">Esconderá el pie de página.</param>
-        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
-        {
-            ViewBag.HideNavbar = _navbar;
-            ViewBag.HideSidebar = _sidebar;
-            ViewBag.HideFooter = _footer;
         }
 
         public IActionResult ConfigureKeys()
@@ -50,6 +43,12 @@ namespace Aspire_POS.Controllers
 
             if (result.Succeeded)
             {
+                var configData = await _configService.GetConfigDataAsync();
+                if (configData?.HostCredentials != null)
+                {
+                    _cache.Set("ApiUrl", configData.HostCredentials, TimeSpan.FromDays(1));
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -64,5 +63,20 @@ namespace Aspire_POS.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Login");
         }
+
+        #region Diseño
+        /// <summary>
+        /// Automáticamente oculta o muestra un componente de la página.
+        /// </summary>
+        /// <param name="_navbar">Esconderá la barra de navegación superior.</param>
+        /// <param name="_sidebar">Esconderá la barra lateral, la cuál está el menú y demás opciones.</param>
+        /// <param name="_footer">Esconderá el pie de página.</param>
+        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
+        {
+            ViewBag.HideNavbar = _navbar;
+            ViewBag.HideSidebar = _sidebar;
+            ViewBag.HideFooter = _footer;
+        }
+        #endregion
     }
 }

@@ -17,17 +17,17 @@ namespace Aspire_POS.Services
         /// <summary>
         /// Obtiene todas las configuraciones almacenadas en la base de datos.
         /// </summary>
-        public async Task<ConfigModel> GetConfigDataAsync()
+        public async Task<ConfigMainModel> GetConfigDataAsync()
         {
             var hostCredentials = await _context.HostCredentials.FirstOrDefaultAsync();
 
-            return new ConfigModel
+            return new ConfigMainModel
             {
                 HostCredentials = hostCredentials
             };
         }
 
-        public async Task UpdateConfigAsync(ConfigModel model)
+        public async Task UpdateConfigAsync(ConfigMainModel model)
         {
             var hostCredentials = await _context.HostCredentials.FirstOrDefaultAsync();
             if (hostCredentials != null)

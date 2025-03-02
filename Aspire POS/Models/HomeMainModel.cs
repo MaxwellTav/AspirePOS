@@ -1,8 +1,7 @@
 ﻿namespace Aspire_POS.Models
 {
-    public class ConfigModel
+    public class HomeMainModel
     {
         public HostCredentialsModel HostCredentials { get; set; }
-        public UserDBSourceModel DBSource { get; set; }
     }
 }

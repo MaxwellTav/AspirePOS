@@ -1,28 +1,42 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Aspire_POS.Services;
+using Aspire_POS.Models;
 
 namespace Aspire_POS.Controllers
 {
     [Authorize]
     public class StaffController : Controller
     {
+        private readonly StaffService _staffService;
+
+        public StaffController(StaffService staffService)
+        {
+            _staffService = staffService;
+        }
+
         public IActionResult Index()
         {
             InitializeViewBags(false, false, false);
-            return View();
+
+            if (_staffService.TryGetHostCredentials(out HostCredentialsModel credentials))
+            {
+                return View(credentials);
+            }
+            else
+            {
+                ViewBag.ApiUrl = "No hay datos en caché";
+                return null;
+            }
         }
 
-        /// <summary>
-        /// Automáticamente oculta o muestra un componente de la página.
-        /// </summary>
-        /// <param name="_navbar">Esconderá la barra de navegación superior.</param>
-        /// <param name="_sidebar">Esconderá la barra lateral, la cuál está el menú y demás opciones.</param>
-        /// <param name="_footer">Esconderá el pie de página.</param>
+        #region Diseño
         void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
         {
             ViewBag.HideNavbar = _navbar;
             ViewBag.HideSidebar = _sidebar;
             ViewBag.HideFooter = _footer;
         }
+        #endregion
     }
 }
