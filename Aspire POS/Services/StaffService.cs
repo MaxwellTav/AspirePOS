@@ -1,35 +1,60 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Aspire_POS.Models;
-using Microsoft.Extensions.Caching.Memory;
+using System.Collections;
+using System.Net.Http.Headers;
 
 namespace Aspire_POS.Services
 {
     public class StaffService
     {
         private readonly IMemoryCache _cache;
+        private readonly HttpClient _httpClient;
 
-        public StaffService(IMemoryCache cache)
+        public StaffService(IMemoryCache cache, HttpClient httpClient)
         {
             _cache = cache;
+            _httpClient = httpClient;
         }
 
         /// <summary>
-        /// Obtiene las credenciales almacenadas en caché.
+        /// Consume la API y obtiene la lista de usuarios del staff.
         /// </summary>
-        public bool TryGetHostCredentials(out HostCredentialsModel credentials)
+        public async Task<StaffMainModel> GetStaffAsync()
         {
-            return _cache.TryGetValue("HostCredentials", out credentials);
-        }
+            if (!_cache.TryGetValue("ApiUrl", out HostCredentialsModel credentials) || string.IsNullOrEmpty(credentials.ApiUrl))
+            {
+                return new StaffMainModel { Staff = new List<UserModel>() };
+            }
 
-        /// <summary>
-        /// Guarda las credenciales en caché.
-        /// </summary>
-        public void SetHostCredentials(HostCredentialsModel credentials)
-        {
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromDays(1));
+            string apiUrl = credentials.ApiUrl.TrimEnd('/') + "/wp/v2/users";
 
-            _cache.Set("HostCredentials", credentials, cacheOptions);
+            try
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.TokenEndpoint);
+                HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                List<UserModel> staffList = JsonSerializer.Deserialize<List<UserModel>>(jsonResponse, options) ?? new List<UserModel>();
+
+                return new StaffMainModel { Staff = staffList };
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error de solicitud HTTP: {ex.Message}");
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Error de deserialización JSON: {ex.Message}");
+            }
+
+            return new StaffMainModel { Staff = new List<UserModel>() };
         }
     }
 }

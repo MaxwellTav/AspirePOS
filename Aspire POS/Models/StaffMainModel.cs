@@ -2,6 +2,6 @@
 {
     public class StaffMainModel
     {
-        List<UserModel> Staff { get; set; }
+        public List<UserModel> Staff { get; set; }
     }
 }

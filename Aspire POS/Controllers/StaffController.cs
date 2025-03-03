@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Aspire_POS.Services;
 using Aspire_POS.Models;
 
@@ -15,19 +16,11 @@ namespace Aspire_POS.Controllers
             _staffService = staffService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             InitializeViewBags(false, false, false);
-
-            if (_staffService.TryGetHostCredentials(out HostCredentialsModel credentials))
-            {
-                return View(credentials);
-            }
-            else
-            {
-                ViewBag.ApiUrl = "No hay datos en caché";
-                return null;
-            }
+            StaffMainModel model = await _staffService.GetStaffAsync();
+            return View(model);
         }
 
         #region Diseño
