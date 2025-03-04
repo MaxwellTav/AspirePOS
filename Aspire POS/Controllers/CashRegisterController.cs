@@ -6,6 +6,11 @@ namespace Aspire_POS.Controllers
     [Authorize]
     public class CashRegisterController : Controller
     {
+        #region Create
+
+        #endregion
+
+        #region Read
         public IActionResult Index()
         {
             InitializeViewBags(true, true, true);
@@ -23,7 +28,17 @@ namespace Aspire_POS.Controllers
             InitializeViewBags(false, false, false);
             return View();
         }
+        #endregion
 
+        #region Update
+
+        #endregion
+
+        #region Delete
+
+        #endregion
+
+        #region Design
         /// <summary>
         /// Automáticamente oculta o muestra un componente de la página.
         /// </summary>
@@ -36,5 +51,6 @@ namespace Aspire_POS.Controllers
             ViewBag.HideSidebar = _sidebar;
             ViewBag.HideFooter = _footer;
         }
+        #endregion
     }
 }

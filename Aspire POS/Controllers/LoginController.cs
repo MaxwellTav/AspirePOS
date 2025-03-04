@@ -11,6 +11,7 @@ namespace Aspire_POS.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ConfigService _configService;
         private readonly IMemoryCache _cache;
+        private readonly int timeSpan = 1;
 
         public LoginController(SignInManager<IdentityUser> signInManager, ConfigService configService, IMemoryCache cache)
         {
@@ -46,8 +47,10 @@ namespace Aspire_POS.Controllers
                 var configData = await _configService.GetConfigDataAsync();
                 if (configData?.HostCredentials != null)
                 {
-                    _cache.Set("HostCredentials", configData.HostCredentials, TimeSpan.FromDays(1));
+                    _cache.Set("HostCredentials", configData.HostCredentials, TimeSpan.FromDays(timeSpan));
                 }
+
+                _cache.Set("UserName", model.UserName, TimeSpan.FromDays(timeSpan));
 
                 return RedirectToAction("Index", "Home");
             }

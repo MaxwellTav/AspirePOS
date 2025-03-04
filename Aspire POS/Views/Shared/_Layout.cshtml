@@ -1,4 +1,10 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+﻿@using Microsoft.Extensions.Caching.Memory
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+@inject Microsoft.Extensions.Caching.Memory.IMemoryCache _cache
+
+@{
+    var userName = _cache.Get<string>("UserName").Substring(0, 10) + "..." ?? "Invitado";
+}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -166,7 +172,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info d-flex align-items-center justify-content-between" style="width: 100%;">
-                        <a @* href="" *@ class="d-block">Usuario de ejemplo</a>
+                        <a><i class="fas fa-user"></i> @userName</a>
                         <a href="@Url.Action("Logout", "Login")" class="btn btn-outline-light btn-sm ml-auto" style="padding: 2px 8px;">
                             <i class="fas fa-lock"></i>
                         </a>
@@ -201,7 +207,7 @@
                             <a href="@Url.Action("Index", "Store")" class="nav-link">
                                 <i class="fas fa-store nav-icon"></i>
                                 <p>
-                                    Tiendas
+                                    Tienda
                                 </p>
                             </a>
                         </li>
@@ -285,6 +291,15 @@
                                 </a>
                             </li>
                         }
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("Logout", "Login")" class="nav-link">
+                                <i class="nav-icon fas fa-power-off"></i>
+                                <p>
+                                    Cerrar Sesión
+                                </p>
+                            </a>
+                        </li>
                         
                     </ul>
                 </nav>
@@ -366,6 +381,7 @@
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="@Url.Content("~/dist/js/pages/dashboard.js")"></script>
+    <script src="@Url.Content("~/dist/js/pages/dashboard3.js")"></script>
 
     <!-- Site-specific scripts -->
     <script src="@Url.Content("~/js/site.js")" asp-append-version="true"></script>
