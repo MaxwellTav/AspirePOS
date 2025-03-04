@@ -245,7 +245,6 @@
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Personal
-                                    <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
                         </li>
@@ -254,7 +253,6 @@
                                 <i class="nav-icon fas fa-calendar"></i>
                                 <p>
                                     Eventos
-                                    @* <span class="right badge badge-danger">New</span> *@
                                 </p>
                             </a>
                         </li>
@@ -263,6 +261,15 @@
                                 <i class="nav-icon fas fa-wrench"></i>
                                 <p>
                                     Configuración
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item" hidden>
+                            <a href="@Url.Action("PermissionConfig", "Settings")" class="nav-link">
+                                <i class="nav-icon fas fa-user-check"></i>
+                                <p>
+                                    Roles y Permisos
+                                    <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
                         </li>
@@ -303,6 +310,12 @@
             <strong>Copyright &copy; 2024-2026 <a href="https://github.com/MaxwellTav">Hans Silver & Maxwell Tavares</a>.</strong> All rights reserved.
         </footer>
     }
+
+    @section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    }
+
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="@Url.Content("~/dist/img/AdminLTELogo.png")" alt="AdminLTELogo" height="60" width="60">

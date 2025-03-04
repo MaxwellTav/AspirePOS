@@ -41,6 +41,14 @@ namespace Aspire_POS.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult PermissionConfig()
+        {
+            InitializeViewBags(false, false, false);
+
+            return View();
+        }
+
+        #region Desing
         /// <summary>
         /// Automáticamente oculta o muestra un componente de la página.
         /// </summary>
@@ -50,5 +58,6 @@ namespace Aspire_POS.Controllers
             ViewBag.HideSidebar = _sidebar;
             ViewBag.HideFooter = _footer;
         }
+        #endregion
     }
 }

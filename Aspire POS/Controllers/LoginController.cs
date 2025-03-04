@@ -46,7 +46,7 @@ namespace Aspire_POS.Controllers
                 var configData = await _configService.GetConfigDataAsync();
                 if (configData?.HostCredentials != null)
                 {
-                    _cache.Set("ApiUrl", configData.HostCredentials, TimeSpan.FromDays(1));
+                    _cache.Set("HostCredentials", configData.HostCredentials, TimeSpan.FromDays(1));
                 }
 
                 return RedirectToAction("Index", "Home");

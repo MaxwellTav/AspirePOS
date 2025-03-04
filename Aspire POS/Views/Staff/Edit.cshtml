@@ -1,0 +1,68 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Editar usuario";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Editar Usuario</h3>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre Completo</label>
+                            <input asp-for="Name" class="form-control" placeholder="Nombre" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Correo" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rol</label>
+                            <select asp-for="Roles" class="form-control">
+                                <option value="shop_manager">Gestor de la tienda</option>
+                                <option value="customer">Cliente</option>
+                                <option value="subscriber">Suscriptor</option>
+                                <option value="contributor">Colaborador</option>
+                                <option value="author">Autor</option>
+                                <option value="editor">Editor</option>
+                                <option value="administrator">Administrador</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Guardar Cambios
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ./wrapper -->
+
+    <script>
+        window.onload = function() {
+            var url = "@ViewBag.ExternalUrl";
+            if (url) {
+                window.open(url, "_blank");  // 🔹 Abre la URL en una nueva pestaña
+                window.location.href = '@Url.Action("Index", "Staff")';  // 🔹 Redirige de vuelta al listado
+            }
+        };
+    </script>
+</body>
+</html>

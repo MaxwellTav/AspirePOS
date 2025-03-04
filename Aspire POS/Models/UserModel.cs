@@ -24,6 +24,13 @@ namespace Aspire_POS.Models
 
         [JsonPropertyName("_links")]
         public Links Links { get; set; }
+
+        [JsonPropertyName("username")]
+        public string Username { get; set; }
+
+        [JsonIgnore]
+        public string Password { get; set; }
+        public string Email { get; set; }
     }
 
     public class AvatarUrls

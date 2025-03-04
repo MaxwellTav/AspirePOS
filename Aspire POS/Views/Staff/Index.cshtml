@@ -16,7 +16,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a class="btn btn-app bg-gradient-info">
+                            <a href="@Url.Action("Create", "Staff")" class="btn btn-app bg-gradient-info">
                                 <span class="badge bg-warning">Espacio Disponibles 2</span>
                                 <i class="fas fa-plus"></i> Crear nuevo personal
                             </a>
@@ -38,23 +38,43 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Nickname</th>
+                                <th>Nombre</th>
+                                <th>Usuario</th>
                                 <th>Rol</th>
-                                <th>Acciones</th>
+                                <th>Ir a Wordpress</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var staff in Model.Staff)
+                            @if (Model.Staff.Count > 0)
+                            {
+                                @foreach (var staff in Model.Staff)
+                                {
+                                    <tr>
+                                        <td>@staff.Id</td>
+                                        <td>@staff.Name</td>
+                                        <td>@staff.Slug</td>
+                                        <td>@staff.Roles[0]</td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Staff", new {id = staff.Id})" class="btn btn-outline-warning">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </a>
+                                            @* <a href="@Url.Action("Delete", "Staff", new {id = staff.Id})" class="btn btn-outline-warning">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </a> *@
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
                             {
                                 <tr>
-                                    <td>@staff.Id</td>
-                                    <td>@staff.Name</td>
-                                    <td>@staff.Slug</td>
-                                    <td>@staff.Roles[0]</td>
+                                    <td>No data...</td>
+                                    <td>No data...</td>
+                                    <td>No data...</td>
+                                    <td>No data...</td>
                                     <td>
-                                        <button class="btn btn-outline-warning">Editar</button>
-                                        <button class="btn btn-outline-danger">Eliminar</button>
+                                        <button class="btn btn-outline-warning">...</button>
+                                        <button class="btn btn-outline-danger">...</button>
                                     </td>
                                 </tr>
                             }
