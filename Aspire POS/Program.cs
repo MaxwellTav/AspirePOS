@@ -16,6 +16,8 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 
 builder.Services.AddScoped<ConfigService>();
 builder.Services.AddScoped<StaffService>();
+builder.Services.AddScoped<CashRegisterService>();
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddHttpClient();
 

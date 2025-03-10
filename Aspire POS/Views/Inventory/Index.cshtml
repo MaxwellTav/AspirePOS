@@ -1,6 +1,5 @@
-﻿@model StaffMainModel
-@{
-    ViewData["Title"] = "Personal";
+﻿@{
+    ViewData["Title"] = "Inventario";
 }
 
 <!DOCTYPE html>
@@ -16,13 +15,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a href="@Url.Action("Create", "Staff")" class="btn btn-app bg-gradient-info">
+                            <a href="" class="btn btn-app bg-gradient-info">
                                 <span class="badge bg-warning">Espacio Disponibles 2</span>
-                                <i class="fas fa-plus"></i> Crear nuevo personal
+                                <i class="fas fa-plus"></i> Crear nuevo artículo
                             </a>
                             <a class="btn btn-app bg-gradient-secondary">
-                                @* <span class="badge bg-warning">Disponibles 3</span> *@
-                                <i class="fas fa-th"></i> Personal actual: @(Model.Staff.Count)
+                                <i class="fas fa-th"></i> Personal actual: 
                             </a>
                         </div>
                     </div>
@@ -45,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model.Staff.Count > 0)
+                            @if (Model != null)
                             {
                                 @foreach (var staff in Model.Staff)
                                 {
@@ -67,16 +65,7 @@
                             }
                             else
                             {
-                                <tr>
-                                    <td>No data...</td>
-                                    <td>No data...</td>
-                                    <td>No data...</td>
-                                    <td>No data...</td>
-                                    <td>
-                                        <button class="btn btn-outline-warning">...</button>
-                                        <button class="btn btn-outline-danger">...</button>
-                                    </td>
-                                </tr>
+                                
                             }
                         </tbody>
                     </table>
@@ -86,46 +75,5 @@
         </div>
     </div>
     <!-- ./wrapper -->
-    <!-- /.Show Message Script -->
-    <script>
-        function ShowMessage(title, body, response, duration) {
-            var type;
-            switch (response) {
-                case "Success":
-                    type = "success";
-                    break;
-                case "Warning":
-                    type = "warning";
-                    break;
-                case "Error":
-                    type = "error";
-                    break;
-                case "Info":
-                    type = "info";
-                    break;
-                default:
-                    type = "info";
-                    break;
-            }
-
-            toastr[type](body, title, {
-                closeButton: true,
-                progressBar: true,
-                timeOut: duration,
-                positionClass: "toast-top-right"
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var toastrTitle = '@TempData["ToastrTitle"]';
-            var toastrMessage = '@TempData["ToastrMessage"]';
-            var toastrResponse = '@TempData["ToastrResponse"]';
-            var toastrDuration = '@TempData["ToastrDuration"]';
-
-            if (toastrMessage && toastrTitle && toastrResponse) {
-                ShowMessage(toastrTitle, toastrMessage, toastrResponse, parseInt(toastrDuration) || 3000);
-            }
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,75 @@
+# -- Índice -- #
+1. HostCredentials (Obsoleto)
+2. LoginCredentials
+3. ConfigMain
+
+___________________________________________________________________________________________________________________________
+
+• 1 HostCredentials - Guarda la clase "HostCredentialsModel" obtenida de tabla "HostCredentials" de la base de datos local.
+
+//Clase
+public class HostCredentialsModel
+{
+    public int Id { get; set; }
+    public string UserId { get; set; }
+    public string ClientKey { get; set; }
+    public string ClientSecret { get; set; }
+    public string ApiUrl { get; set; }
+    public string TokenEndpoint { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAt { get; set; }
+
+    public virtual AspNetUserModel User { get; set; }
+}
+
+//Tabla
+CREATE TABLE HostCredentials (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId NVARCHAR(450) NOT NULL,
+    ClientKey NVARCHAR(255) NOT NULL,
+    ClientSecret NVARCHAR(255) NOT NULL,
+    ApiUrl NVARCHAR(500) NOT NULL,
+    TokenEndpoint NVARCHAR(500) NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdatedAt DATETIME NULL,
+    CONSTRAINT FK_HostCredentials_User FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);
+
+___________________________________________________________________________________________________________________________
+
+
+2 • LoginCredentials - Guarda la clase "LoginViewModel" obtenida para el uso de la clase "AspNetUserModel".
+
+//Clase:
+public class AspNetUserModel
+{
+    public string Id { get; set; }
+    public string UserName { get; set; }
+    public string Email { get; set; }
+}
+
+//Tabla
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](450) NOT NULL,
+	[UserName] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+___________________________________________________________________________________________________________________________

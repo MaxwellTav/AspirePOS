@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Aspire_POS.Controllers
 {
     [Authorize]
-    public class StaffController : Controller
+    public class StaffController : BaseController
     {
         private readonly StaffService _staffService;
         private readonly IMemoryCache _cache;
@@ -45,12 +45,8 @@ namespace Aspire_POS.Controllers
 
             if (result)
             {
-                TempData["SuccessMessage"] = "✅ Usuario creado exitosamente.";
+                ShowMessage("Éxito", "Se ha creado el usuario de manera exitosa.", MessageResponse.Success);
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "❌ Error al crear el usuario. Verifica los datos ingresados.";
             }
 
             return View(model);
@@ -117,15 +113,6 @@ namespace Aspire_POS.Controllers
 
         #region Delete
 
-        #endregion
-
-        #region Diseño
-        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
-        {
-            ViewBag.HideNavbar = _navbar;
-            ViewBag.HideSidebar = _sidebar;
-            ViewBag.HideFooter = _footer;
-        }
         #endregion
     }
 }

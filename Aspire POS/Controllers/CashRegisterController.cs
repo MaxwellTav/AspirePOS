@@ -1,19 +1,33 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Aspire_POS.Models;
+using Aspire_POS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System.Threading.Tasks;
 
 namespace Aspire_POS.Controllers
 {
     [Authorize]
-    public class CashRegisterController : Controller
+    public class CashRegisterController : BaseController
     {
+        private readonly CashRegisterService _cashRegister;
+        private readonly IMemoryCache _cache;
+
+        public CashRegisterController(IMemoryCache cache, CashRegisterService cashRegister)
+        {
+            _cashRegister = cashRegister;
+            _cache = cache;
+        }
+
         #region Create
 
         #endregion
 
         #region Read
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             InitializeViewBags(true, true, true);
+            //CashRegisterMainModel model = await _cashRegister.GetCashRegisterAsync();
             return View();
         }
 
@@ -36,21 +50,6 @@ namespace Aspire_POS.Controllers
 
         #region Delete
 
-        #endregion
-
-        #region Design
-        /// <summary>
-        /// Automáticamente oculta o muestra un componente de la página.
-        /// </summary>
-        /// <param name="_navbar">Esconderá la barra de navegación superior.</param>
-        /// <param name="_sidebar">Esconderá la barra lateral, la cuál está el menú y demás opciones.</param>
-        /// <param name="_footer">Esconderá el pie de página.</param>
-        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
-        {
-            ViewBag.HideNavbar = _navbar;
-            ViewBag.HideSidebar = _sidebar;
-            ViewBag.HideFooter = _footer;
-        }
         #endregion
     }
 }

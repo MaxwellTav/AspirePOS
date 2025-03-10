@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aspire_POS.Controllers
 {
     [Authorize]
-    public class StoreController : BaseController
+    public class InventoryController : BaseController
     {
         public IActionResult Index()
         {

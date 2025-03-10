@@ -3,7 +3,30 @@
 @inject Microsoft.Extensions.Caching.Memory.IMemoryCache _cache
 
 @{
-    var userName = _cache.Get<string>("UserName").Substring(0, 10) + "..." ?? "Invitado";
+    var userName = "Usuario";
+
+    try
+    {
+        // 🔹 Intentar obtener el objeto desde la caché
+        var cachedUserModel = _cache.Get<ConfigMainModel>("ConfigMain");
+
+        // 🔹 Validar que `cachedUserModel` y `HostCredentials` no sean nulos antes de acceder a `UserName`
+        var cachedUser = cachedUserModel?.HostCredentials?.User?.UserName;
+
+        if (!string.IsNullOrEmpty(cachedUser))
+        {
+            userName = cachedUser.Length > 15 ? cachedUser.Substring(0, 15) + "..." : cachedUser;
+        }
+        else
+        {
+            userName = "Invitado";
+        }
+    }
+    catch
+    {
+        userName = "Usuario Principal"; // 🔹 En caso de error, usar un valor por defecto
+    }
+
 }
 
 <!DOCTYPE html>
@@ -51,16 +74,23 @@
     <link rel="stylesheet" href="@Url.Content("~/plugins/summernote/summernote-bs4.min.css")" />
 
     <!-- fullCalendar -->
-    <link rel="stylesheet" href="../plugins/fullcalendar/main.css">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/fullcalendar/main.css")">
 
     <!-- CodeMirror -->
-    <link rel="stylesheet" href="../../plugins/codemirror/codemirror.css">
-    <link rel="stylesheet" href="../../plugins/codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/codemirror/codemirror.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/codemirror/theme/monokai.css")">
 
     <!-- DataTables -->
-    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css")">
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="@Url.Content("~/plugins/toastr/toastr.min.css")">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="@Url.Content("~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css")">
+
 </head>
 
 <body>
@@ -173,9 +203,6 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info d-flex align-items-center justify-content-between" style="width: 100%;">
                         <a><i class="fas fa-user"></i> @userName</a>
-                        <a href="@Url.Action("Logout", "Login")" class="btn btn-outline-light btn-sm ml-auto" style="padding: 2px 8px;">
-                            <i class="fas fa-lock"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -389,24 +416,28 @@
     <!-- Sweet Alert 2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- CodeMirror -->
-    <script src="../../plugins/codemirror/codemirror.js"></script>
-    <script src="../../plugins/codemirror/mode/css/css.js"></script>
-    <script src="../../plugins/codemirror/mode/sql/sql.js"></script>
+    <!-- Toastr -->
+    <script src="@Url.Content("~/plugins/toastr/toastr.min.js")"></script>
 
-    <!-- DataTables  & Plugins -->
-    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../plugins/jszip/jszip.min.js"></script>
-    <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- CodeMirror -->
+    <script src="@Url.Content("~/plugins/codemirror/codemirror.js")"></script>
+    <script src="@Url.Content("~/plugins/codemirror/mode/css/css.js")"></script>
+    <script src="@Url.Content("~/plugins/codemirror/mode/sql/sql.js")"></script>
+
+    <!-- DataTables & Plugins -->
+    <script src="@Url.Content("~/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-responsive/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-buttons/js/dataTables.buttons.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/plugins/jszip/jszip.min.js")"></script>
+    <script src="@Url.Content("~/plugins/pdfmake/pdfmake.min.js")"></script>
+    <script src="@Url.Content("~/plugins/pdfmake/vfs_fonts.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-buttons/js/buttons.html5.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-buttons/js/buttons.print.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-buttons/js/buttons.colVis.min.js")"></script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

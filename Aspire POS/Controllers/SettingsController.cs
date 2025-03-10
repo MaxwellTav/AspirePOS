@@ -3,25 +3,35 @@ using System.Threading.Tasks;
 using Aspire_POS.Services;
 using Aspire_POS.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Aspire_POS.Controllers
 {
     [Authorize]
-    public class SettingsController : Controller
+    public class SettingsController : BaseController
     {
         private readonly ConfigService _configService;
+        private readonly IMemoryCache _cache;
 
-        public SettingsController(ConfigService configService)
+        public SettingsController(ConfigService configService, IMemoryCache cache)
         {
             _configService = configService;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Index()
         {
             InitializeViewBags(false, false, false);
+            ConfigMainModel configData = new ConfigMainModel();
 
-            // Obtener todas las configuraciones desde la base de datos
-            var configData = await _configService.GetConfigDataAsync();
+            if (!_cache.TryGetValue("ConfigMain", out var cachedUser) || cachedUser is not ConfigMainModel user)
+            {
+                //Aquí se manejará la excepción de mostrar un mensaje
+                //return RedirectToAction("Index", "Login");
+                return View(configData);
+            }
+
+            configData = await _configService.GetConfigDataAsync(user.HostCredentials.User.UserName);
             return View(configData);
         }
 
@@ -47,17 +57,5 @@ namespace Aspire_POS.Controllers
 
             return View();
         }
-
-        #region Desing
-        /// <summary>
-        /// Automáticamente oculta o muestra un componente de la página.
-        /// </summary>
-        void InitializeViewBags(bool _navbar, bool _sidebar, bool _footer)
-        {
-            ViewBag.HideNavbar = _navbar;
-            ViewBag.HideSidebar = _sidebar;
-            ViewBag.HideFooter = _footer;
-        }
-        #endregion
     }
 }

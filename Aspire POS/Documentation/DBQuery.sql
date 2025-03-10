@@ -58,14 +58,14 @@ Values
 
 
 CREATE TABLE HostCredentials (
-    Id INT PRIMARY KEY IDENTITY(1,1), -- Identificador único
-    UserId NVARCHAR(450) NOT NULL, -- Usuario dueño de la clave
-    ClientKey NVARCHAR(255) NOT NULL, -- Clave del cliente
-    ClientSecret NVARCHAR(255) NOT NULL, -- Clave secreta del cliente
-    ApiUrl NVARCHAR(500) NOT NULL, -- URL del host
-    TokenEndpoint NVARCHAR(500) NULL, -- URL del endpoint para autenticación (Nuevo)
-    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(), -- Fecha de creación del registro
-    UpdatedAt DATETIME NULL, -- Fecha de última actualización
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId NVARCHAR(450) NOT NULL,
+    ClientKey NVARCHAR(255) NOT NULL,
+    ClientSecret NVARCHAR(255) NOT NULL,
+    ApiUrl NVARCHAR(500) NOT NULL,
+    TokenEndpoint NVARCHAR(500) NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdatedAt DATETIME NULL,
     CONSTRAINT FK_HostCredentials_User FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
 );
 
@@ -81,14 +81,14 @@ VALUES
 
 
 CREATE TABLE AuditLogs (
-    Id INT PRIMARY KEY IDENTITY(1,1), -- Identificador único
-    UserId NVARCHAR(450) NULL, -- Usuario que realizó la acción
-    Action NVARCHAR(255) NOT NULL, -- Tipo de acción (Insert, Update, Delete, Login, etc.)
-    TableName NVARCHAR(255) NOT NULL, -- Tabla afectada
-    RecordId INT NULL, -- ID del registro afectado
-    OldValues NVARCHAR(MAX) NULL, -- Valores anteriores
-    NewValues NVARCHAR(MAX) NULL, -- Valores nuevos
-    Timestamp DATETIME NOT NULL DEFAULT GETDATE() -- Fecha y hora del evento
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId NVARCHAR(450) NULL,
+    Action NVARCHAR(255) NOT NULL,
+    TableName NVARCHAR(255) NOT NULL,
+    RecordId INT NULL,
+    OldValues NVARCHAR(MAX) NULL,
+    NewValues NVARCHAR(MAX) NULL,
+    Timestamp DATETIME NOT NULL DEFAULT GETDATE()
 );
 
 CREATE TABLE ProgramRegisterTable (
@@ -108,3 +108,14 @@ CREATE TABLE ProgramRegisterTable (
 
 INSERT INTO ProgramRegisterTable (UserId, ProgramName, PurchaseDate, PlanId, PaymentId, ExpirationDate, Status, Notes)
 VALUES ('6b9ccf8e-2463-451c-ac11-53711a17997b', 'Accounting Software', GETDATE(), 1, 1, DATEADD(MONTH, 1, GETDATE()), 'Active', 'Single-user license');
+
+CREATE TABLE PathTable (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+	AuthPathName VARCHAR(50) NOT NULL UNIQUE,
+    AuthPath NVARCHAR(255) NOT NULL UNIQUE,
+    Description NVARCHAR(500) NOT NULL,
+    UpdatedAt DATETIME NULL DEFAULT GETDATE()
+);
+
+INSERT INTO PathTable (AuthPathName, AuthPath, Description, UpdatedAt) 
+VALUES ('Users', '/wp-json/wp/v2/users', 'Obtiene todos los usuarios registrados en WordPress', GETDATE());

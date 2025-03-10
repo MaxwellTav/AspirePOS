@@ -1,4 +1,5 @@
-﻿using Aspire_POS.Models;
+﻿using Aspire_POS.Controllers;
+using Aspire_POS.Models;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http.Headers;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text.Json;
 
 namespace Aspire_POS.Services
 {
-    public class StaffService
+    public class StaffService : BaseController
     {
         private readonly IMemoryCache _cache;
         private readonly HttpClient _httpClient;
@@ -23,16 +24,16 @@ namespace Aspire_POS.Services
             if (newUser == null)
                 throw new ArgumentNullException(nameof(newUser));
 
-            if (!_cache.TryGetValue("HostCredentials", out HostCredentialsModel credentials) || string.IsNullOrEmpty(credentials.ApiUrl))
+            if (!_cache.TryGetValue("ConfigMain", out ConfigMainModel credentials) || string.IsNullOrEmpty(credentials.HostCredentials.ApiUrl))
             {
                 return false;
             }
 
-            string apiUrl = credentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
+            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
 
             try
             {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.TokenEndpoint);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.HostCredentials.TokenEndpoint);
 
                 var userData = new
                 {
@@ -50,19 +51,18 @@ namespace Aspire_POS.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("✅ Usuario creado exitosamente.");
+                    Console.WriteLine("Usuario creado exitosamente.");
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine($"❌ Error al crear usuario: {response.StatusCode}");
-                    Console.WriteLine(responseBody);
+                    ShowMessage($"Error {response.StatusCode}", "Hubo un error al crear el usuario\n" + responseBody, MessageResponse.Warning, 5);
                     return false;
                 }
             }
             catch (HttpRequestException ex)
             {
-                Console.WriteLine($"❌ Error HTTP: {ex.Message}");
+                Console.WriteLine($"Error HTTP: {ex.Message}");
             }
             catch (JsonException ex)
             {
@@ -83,16 +83,16 @@ namespace Aspire_POS.Services
         /// </summary>
         public async Task<StaffMainModel> GetStaffAsync()
         {
-            if (!_cache.TryGetValue("HostCredentials", out HostCredentialsModel credentials) || string.IsNullOrEmpty(credentials.ApiUrl))
+            if (!_cache.TryGetValue("ConfigMain", out ConfigMainModel credentials) || string.IsNullOrEmpty(credentials.HostCredentials.ApiUrl))
             {
                 return new StaffMainModel { Staff = new List<UserModel>() };
             }
 
-            string apiUrl = credentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
+            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
 
             try
             {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.TokenEndpoint);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", credentials.HostCredentials.TokenEndpoint);
                 HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
                 response.EnsureSuccessStatusCode();
 
