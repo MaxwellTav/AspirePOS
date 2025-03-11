@@ -1,4 +1,5 @@
 using Aspire_POS;
+using Aspire_POS.Models;
 using Aspire_POS.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ builder.Services.AddScoped<ConfigService>();
 builder.Services.AddScoped<StaffService>();
 builder.Services.AddScoped<CashRegisterService>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<StoreService>();
+builder.Services.AddScoped<InventoryService>();
 
 builder.Services.AddHttpClient();
 

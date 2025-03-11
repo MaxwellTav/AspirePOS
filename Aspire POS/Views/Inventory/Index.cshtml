@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Aspire_POS.Models.InventoryModel
+
+@{
     ViewData["Title"] = "Inventario";
 }
 
@@ -8,28 +10,26 @@
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a href="" class="btn btn-app bg-gradient-info">
+                            <a href="#" class="btn btn-app bg-gradient-info">
                                 <span class="badge bg-warning">Espacio Disponibles 2</span>
                                 <i class="fas fa-plus"></i> Crear nuevo artículo
                             </a>
                             <a class="btn btn-app bg-gradient-secondary">
-                                <i class="fas fa-th"></i> Personal actual: 
+                                <i class="fas fa-th"></i> Personal actual:
                             </a>
                         </div>
                     </div>
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Usuarios</h3>
+                    <h3 class="card-title">Inventario</h3>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -37,35 +37,34 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Usuario</th>
-                                <th>Rol</th>
-                                <th>Ir a Wordpress</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Categoría</th>
+                                <th>Imagen</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model != null)
+                            @if (Model.Products.Count > 0)
                             {
-                                @foreach (var staff in Model.Staff)
+                                @foreach (var product in Model.Products)
                                 {
                                     <tr>
-                                        <td>@staff.Id</td>
-                                        <td>@staff.Name</td>
-                                        <td>@staff.Slug</td>
-                                        <td>@staff.Roles[0]</td>
+                                        <td>@product.Id</td>
+                                        <td>@product.Name</td>
+                                        <td>@product.Price.ToString("C")</td>
+                                        <td>@(product.InStock ? "Sí" : "No")</td>
+                                        <td>@(product.Categories.Count > 0 ? product.Categories[0].Name : "Sin categoría")</td>
                                         <td>
-                                            <a href="@Url.Action("Edit", "Staff", new {id = staff.Id})" class="btn btn-outline-warning">
-                                                <i class="fas fa-edit"></i> Editar
-                                            </a>
-                                            @* <a href="@Url.Action("Delete", "Staff", new {id = staff.Id})" class="btn btn-outline-warning">
-                                                <i class="fas fa-trash"></i> Eliminar
-                                            </a> *@
+                                            <img src="@product.Images.FirstOrDefault()" alt="Imagen de @product.Name" width="50" />
                                         </td>
                                     </tr>
                                 }
                             }
                             else
                             {
-                                
+                                <tr>
+                                    <td colspan="7" class="text-center">No hay productos en inventario</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -74,6 +73,5 @@
 
         </div>
     </div>
-    <!-- ./wrapper -->
 </body>
 </html>
