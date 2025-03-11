@@ -1,4 +1,6 @@
-﻿public class ProductModel
+﻿using Newtonsoft.Json;
+
+public class ProductModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -14,6 +16,9 @@
     public decimal RegularPrice { get; set; }
     public bool Purchasable { get; set; }
     public bool InStock { get; set; }
+
+    [JsonProperty("stock_quantity")]
+    public int? StockQuantity { get; set; }
     public string TaxStatus { get; set; }
     public string TaxClass { get; set; }
     public bool ShippingRequired { get; set; }

@@ -248,18 +248,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("AdminCashier", "CashRegister")" class="nav-link">
+                                    <a href="@Url.Action("Index", "Upgrade")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Administrar cajas
+                                            Administrar cajas (Pro)
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="@Url.Action("SeeSesions", "CashRegister")" class="nav-link">
+                                    <a href="@Url.Action("Index", "Upgrade")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Ver sesiones
+                                            Ver sesiones (Pro)
                                         </p>
                                     </a>
                                 </li>
@@ -267,7 +267,7 @@
                                     <a href="@Url.Action("Index", "CashRegister")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Iniciar caja admin
+                                            Ir a Caja
                                         </p>
                                     </a>
                                 </li>
@@ -282,10 +282,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Index", "Calendar")" class="nav-link">
+                            <a href="@Url.Action("Index", "Upgrade")" class="nav-link">
                                 <i class="nav-icon fas fa-calendar"></i>
                                 <p>
-                                    Eventos
+                                    Eventos (Pro)
                                 </p>
                             </a>
                         </li>
@@ -297,6 +297,16 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Upgrade")" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-wave"></i>
+                                <p>
+                                    Planes & Precios
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+
                         <li class="nav-item" hidden>
                             <a href="@Url.Action("PermissionConfig", "Settings")" class="nav-link">
                                 <i class="nav-icon fas fa-user-check"></i>
@@ -505,6 +515,48 @@
             "autoWidth": true,
             "responsive": true,
           });
+        });
+    </script>
+
+    <!-- /.Show Message Script -->
+    <script>
+        function ShowMessage(title, body, response, duration) {
+            var type;
+            switch (response) {
+                case "Success":
+                    type = "success";
+                    break;
+                case "Warning":
+                    type = "warning";
+                    break;
+                case "Error":
+                    type = "error";
+                    break;
+                case "Info":
+                    type = "info";
+                    break;
+                default:
+                    type = "info";
+                    break;
+            }
+
+            toastr[type](body, title, {
+                closeButton: true,
+                progressBar: true,
+                timeOut: duration,
+                positionClass: "toast-top-right"
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var toastrTitle = '@TempData["ToastrTitle"]';
+            var toastrMessage = '@TempData["ToastrMessage"]';
+            var toastrResponse = '@TempData["ToastrResponse"]';
+            var toastrDuration = '@TempData["ToastrDuration"]';
+
+            if (toastrMessage && toastrTitle && toastrResponse) {
+                ShowMessage(toastrTitle, toastrMessage, toastrResponse, parseInt(toastrDuration) || 3000);
+            }
         });
     </script>
 </body>

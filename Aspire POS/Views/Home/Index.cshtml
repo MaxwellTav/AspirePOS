@@ -24,7 +24,7 @@
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Online Store Visitors</h3>
-                                <a href="javascript:void(0);">View Report</a>
+                                <a href="@Url.Action("Index", "Upgrade")">View Report</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -267,45 +267,3 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-<!-- /.Show Message Script -->
-<script>
-    function ShowMessage(title, body, response, duration) {
-        var type;
-        switch (response) {
-            case "Success":
-                type = "success";
-                break;
-            case "Warning":
-                type = "warning";
-                break;
-            case "Error":
-                type = "error";
-                break;
-            case "Info":
-                type = "info";
-                break;
-            default:
-                type = "info";
-                break;
-        }
-
-        toastr[type](body, title, {
-            closeButton: true,
-            progressBar: true,
-            timeOut: duration,
-            positionClass: "toast-top-right"
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var toastrTitle = '@TempData["ToastrTitle"]';
-        var toastrMessage = '@TempData["ToastrMessage"]';
-        var toastrResponse = '@TempData["ToastrResponse"]';
-        var toastrDuration = '@TempData["ToastrDuration"]';
-
-        if (toastrMessage && toastrTitle && toastrResponse) {
-            ShowMessage(toastrTitle, toastrMessage, toastrResponse, parseInt(toastrDuration) || 3000);
-        }
-    });
-</script>

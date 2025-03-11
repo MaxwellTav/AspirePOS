@@ -11,25 +11,10 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <div class="content-wrapper">
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <a href="#" class="btn btn-app bg-gradient-info">
-                                <span class="badge bg-warning">Espacio Disponibles 2</span>
-                                <i class="fas fa-plus"></i> Crear nuevo artículo
-                            </a>
-                            <a class="btn btn-app bg-gradient-secondary">
-                                <i class="fas fa-th"></i> Personal actual:
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Inventario</h3>
+                    <button class="btn btn-secondary"><i class="fas fa-book"></i> <b>Inventario</b></button>
+                    <button class="btn btn-warning"><i class="fas fa-plus"></i> Crear nuevo artículo</button>
                 </div>
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -52,7 +37,7 @@
                                         <td>@product.Id</td>
                                         <td>@product.Name</td>
                                         <td>@product.Price.ToString("C")</td>
-                                        <td>@(product.InStock ? "Sí" : "No")</td>
+                                        <td>@(product.InStock ? product.StockQuantity.ToString() : "No")</td>
                                         <td>@(product.Categories.Count > 0 ? product.Categories[0].Name : "Sin categoría")</td>
                                         <td>
                                             <img src="@product.Images.FirstOrDefault()" alt="Imagen de @product.Name" width="50" />

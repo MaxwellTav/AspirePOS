@@ -75,7 +75,7 @@ namespace Aspire_POS.Controllers
         }
 
         /// <summary>
-        /// Automáticamente oculta componentes de la página, la barra de navegación, la barra lateral y el pie de página.
+        /// Automáticamente oculta todos los componentes de la página, la barra de navegación, la barra lateral y el pie de página.
         /// </summary>
         public void InitializeViewBags()
         {

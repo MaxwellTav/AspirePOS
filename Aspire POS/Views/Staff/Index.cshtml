@@ -86,46 +86,5 @@
         </div>
     </div>
     <!-- ./wrapper -->
-    <!-- /.Show Message Script -->
-    <script>
-        function ShowMessage(title, body, response, duration) {
-            var type;
-            switch (response) {
-                case "Success":
-                    type = "success";
-                    break;
-                case "Warning":
-                    type = "warning";
-                    break;
-                case "Error":
-                    type = "error";
-                    break;
-                case "Info":
-                    type = "info";
-                    break;
-                default:
-                    type = "info";
-                    break;
-            }
-
-            toastr[type](body, title, {
-                closeButton: true,
-                progressBar: true,
-                timeOut: duration,
-                positionClass: "toast-top-right"
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var toastrTitle = '@TempData["ToastrTitle"]';
-            var toastrMessage = '@TempData["ToastrMessage"]';
-            var toastrResponse = '@TempData["ToastrResponse"]';
-            var toastrDuration = '@TempData["ToastrDuration"]';
-
-            if (toastrMessage && toastrTitle && toastrResponse) {
-                ShowMessage(toastrTitle, toastrMessage, toastrResponse, parseInt(toastrDuration) || 3000);
-            }
-        });
-    </script>
 </body>
 </html>
