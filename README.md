@@ -1,68 +1,75 @@
-# 🛍️ AspirePOS
+# 🏪 AspirePOS
 
 **AspirePOS** es una plataforma de gestión de punto de venta (POS) diseñada para ofrecer una experiencia eficiente y fácil de usar para negocios de cualquier tamaño.
 
-🔗 **[Visita el sitio en línea](http://aspirepos.somee.com/)**
+🔗 [Visita el sitio web](http://aspirepos.someee.com/)
 
-## 🚀 Características principales
+## ✨ Características principales
 
-✅ Interfaz intuitiva y moderna.  
-✅ Soporte para múltiples bases de datos.  
-✅ Gestión de productos, ventas e inventario.  
-✅ Integración con CodeMirror para edición de código SQL.  
-✅ Totalmente desarrollado con **ASP.NET Core MVC**.  
+- 📌 **Interfaz moderna e intuitiva** para una experiencia de usuario optimizada.
+- 🗃️ **Soporte para múltiples bases de datos** para un almacenamiento flexible.
+- 🛍️ **Gestión de productos, ventas e inventario** en tiempo real.
+- 🛠️ **Integración con CodeMirror** para edición avanzada de código SQL.
+- 📊 **Dashboard con estadísticas en tiempo real** utilizando `ASP.NET Core MVC`.
+- 🔑 **Autenticación y control de acceso** para mayor seguridad.
 
 ## 📸 Capturas de pantalla
 
-_Añade aquí imágenes representativas de tu aplicación._
+<img width="960" alt="2" src="https://github.com/user-attachments/assets/befe4778-9578-4ccc-a955-cb7f79eb4709" />
+<img width="960" alt="6" src="https://github.com/user-attachments/assets/e25020b7-47db-449c-942a-01f2f69348e6" />
+<img width="960" alt="5" src="https://github.com/user-attachments/assets/13bbd420-8cee-434d-80e5-a9bf6b084196" />
+<img width="960" alt="4" src="https://github.com/user-attachments/assets/efabfe40-c8f4-4014-8e1d-e6efee026c98" />
+<img width="960" alt="3" src="https://github.com/user-attachments/assets/24f552ca-9b0a-4af1-bd51-9e81e0ce89e9" />
+<img width="960" alt="1" src="https://github.com/user-attachments/assets/1bb1a6b7-0042-4201-8368-af24c1f78378" />
 
-## 📦 Tecnologías utilizadas
 
-- 🏗 **ASP.NET Core MVC**
-- 🎨 **Bootstrap** + **AdminLTE**
-- 📜 **CodeMirror** para edición de código SQL
-- 🗄 **SQL Server / MySQL** (dependiendo de la configuración)
-- 🌐 **jQuery y JavaScript** para interactividad
+## 🔧 Tecnologías utilizadas
 
-## 🛠 Instalación y configuración
+- ✅ **ASP.NET Core MVC** – Backend robusto y escalable.
+- 🚀 **Bootstrap + AdminLTE** – Interfaz moderna y responsiva.
+- 🖥️ **CodeMirror** – Editor para sentencias SQL.
+- 🗄️ **SQL Server / MySQL** – Soporte de múltiples bases de datos.
+- 📜 **jQuery & JavaScript** – Para interactividad y funcionalidades dinámicas.
 
-1. Clona el repositorio:
+## 🚀 Instalación y configuración
+
+1. **Clonar el repositorio:**
    ```sh
-   git clone https://github.com/tu-usuario/aspirepos.git
-   cd aspirepos
+   git clone https://github.com/MaxwellTav/AspirePOS.git
+   cd AspirePOS
    ```
-2. Restaura los paquetes de NuGet:
+
+2. **Restaurar paquetes de NuGet:**
    ```sh
    dotnet restore
    ```
-3. Configura la conexión a la base de datos en `appsettings.json`.
-4. Ejecuta la aplicación:
+
+3. **Configurar la base de datos** en `appsettings.json`.
+
+4. **Ejecutar la aplicación:**
    ```sh
    dotnet run
    ```
-5. Accede en tu navegador a `http://localhost:5000/` o el puerto asignado.
 
-## 🎯 Roadmap
+5. **Acceder a la aplicación** en `http://localhost:5000/`.
 
-📌 Mejoras futuras:
-- 🔹 Integración con sistemas de facturación electrónica.
-- 🔹 Soporte para múltiples usuarios y roles.
-- 🔹 Versión móvil optimizada.
+## 🛣️ Roadmap
+
+📌 **Futuras mejoras**:
+- 🔧 Integración con más sistemas de facturación electrónica.
+- 👥 Soporte para múltiples roles de usuario.
+- ⚡ Optimización del rendimiento y carga.
 
 ## 🤝 Contribuciones
 
-¡Las contribuciones son bienvenidas! Si quieres colaborar, sigue estos pasos:
+¡Las contribuciones son bienvenidas! Si deseas colaborar:
+
 1. Realiza un **fork** del repositorio.
-2. Crea una nueva rama: `git checkout -b feature-nueva`.
-3. Realiza tus cambios y haz un commit: `git commit -m 'Agregada nueva funcionalidad'`.
-4. Sube los cambios a tu repositorio: `git push origin feature-nueva`.
+2. Crea una **nueva rama**: `git checkout -b feature-nueva`
+3. Realiza los cambios y haz un **commit**: `git commit -m 'Agregada nueva funcionalidad'`
+4. Envía los cambios al repositorio: `git push origin feature-nueva`
 5. Abre un **Pull Request** en GitHub.
 
-## 📄 Licencia
+## 📜 Licencia
 
-Este proyecto está bajo la licencia **MIT**. Consulta el archivo `LICENSE` para más detalles.
-
-## 🎉 ¡Gracias por visitar AspirePOS!
-
-Si te gusta el proyecto, no olvides **darle una estrella ⭐ en GitHub**. 😊
-
+Este proyecto está bajo la licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más detalles.
