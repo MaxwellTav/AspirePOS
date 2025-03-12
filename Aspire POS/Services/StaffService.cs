@@ -29,7 +29,7 @@ namespace Aspire_POS.Services
                 return false;
             }
 
-            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
+            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/" + PathsModel.USERS;
 
             try
             {
@@ -88,7 +88,7 @@ namespace Aspire_POS.Services
                 return new StaffMainModel { Staff = new List<UserModel>() };
             }
 
-            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users";
+            string apiUrl = credentials.HostCredentials.ApiUrl.TrimEnd('/') + "/" + PathsModel.USERS;
 
             try
             {
@@ -127,7 +127,7 @@ namespace Aspire_POS.Services
                 return false;
             }
 
-            string apiUrl = credentials.ApiUrl.TrimEnd('/') + "/wp-json/wp/v2/users" + updatedUser.Id;
+            string apiUrl = credentials.ApiUrl.TrimEnd('/') + "/" + PathsModel.USERS + updatedUser.Id;
 
             try
             {

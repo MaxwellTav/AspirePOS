@@ -74,7 +74,7 @@ namespace Aspire_POS.Controllers
                     return NotFound();
                 }
 
-                string externalUrl = credentials.ApiUrl + $"wp-admin/user-edit.php?user_id={id}";
+                string externalUrl = credentials.ApiUrl + $"{PathsModel.USERLINK}{id}";
                 return Redirect(externalUrl);
             }
 

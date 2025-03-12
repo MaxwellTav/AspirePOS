@@ -21,5 +21,7 @@
         /// Obtiene todos los productos registrados en WooComerce
         /// </summary>
         public const string PRODUCTS = "wp-json/wc/v3/products";
+
+        public const string USERLINK = "wp-admin/user-edit.php?user_id=";
     }
 }

@@ -1,10 +1,10 @@
-﻿@{
+﻿@model CashRegisterMainModel
+@{
     ViewData["Title"] = "Caja | Cerrada";
 }
 
 <body>
     <style>
-        /* Hace que el body y html ocupen toda la pantalla */
         html, body {
             height: 100%;
             margin: 0;
@@ -13,7 +13,6 @@
             background-color: #f8f9fa;
         }
 
-        /* Navbar fijo arriba */
         .navbar {
             height: 60px;
             background: #343a40;
@@ -42,14 +41,12 @@
                 color: white;
             }
 
-        /* Ajusta la página para que tome en cuenta el navbar */
         .container-fluid {
-            height: calc(100vh - 60px); /* Resta la altura del navbar */
+            height: calc(100vh - 60px);
             display: flex;
             margin-top: 60px;
         }
 
-        /* Panel de Productos (más grande) */
         .col-productos {
             height: 100%;
             overflow: hidden;
@@ -59,7 +56,6 @@
             width: 60%;
         }
 
-        /* Panel del Carrito (más pequeño) */
         .col-carrito {
             height: 100%;
             overflow: hidden;
@@ -70,21 +66,18 @@
             background: white;
         }
 
-        /* Ajusta el tamaño de las tarjetas y mantiene scroll en el contenido */
         .card {
             flex-grow: 0;
             display: flex;
             flex-direction: column;
         }
 
-        /* Hace que el contenido tenga scroll independiente */
         .scrollable {
             flex-grow: 1;
             overflow-y: auto;
-            max-height: calc(100vh - 120px); /* Resta navbar y header */
+            max-height: calc(100vh - 120px);
         }
 
-        /* Footer fijo del carrito */
         .fixed-bottom-panel {
             background: white;
             padding: 20px;
@@ -94,22 +87,22 @@
             width: 100%;
         }
 
-        /* Hace que toda la tarjeta sea un botón */
         .product-card {
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* Efecto al pasar el mouse */
         .product-card:hover {
             transform: scale(1.05);
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
+
+
     </style>
 
     <!-- Navbar Corregido -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand fw-bold" href="#">🛒 Punto de Venta</a>
+        <a class="navbar-brand fw-bold" href="#"><i class="fas fa-shipping-fast"></i> Point Of Sell</a>
 
         <div class="ms-auto d-flex align-items-center">
             <input type="text" placeholder="Código del Producto" class="form-control me-2">
@@ -136,20 +129,32 @@
                     </div>
                     <div class="card-body scrollable">
                         <div class="row g-2">
-                            @for (int i = 0; i < 30; i++)
+                           
+                            <!-- Productos -->
+                            @if (Model.CashRegisters != null && Model.CashRegisters.Any())
                             {
-                                <div class="col-6 col-md-4 col-lg-3">
-                                    <div class="card p-2 product-card">
-                                        <img src="https://placehold.co/50" class="card-img-top" alt="Producto">
-                                        <div class="card-body p-1">
-                                            <h5 class="card-title">Producto @(i + 1)</h5>
-                                            <br />
-                                            <p class="text-muted small">Descripción breve</p>
-                                            <span class="fw-bold h4">$100</span>
+                                @foreach (var product in Model.CashRegisters)
+                                {
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <div class="card p-2 product-card">
+                                            <img src="@product.Images.FirstOrDefault()?.Src" class="card-img-top" alt="Producto">
+                                            <div class="card-body p-1">
+                                                <h5 class="card-title">@product.Name</h5>
+                                                <br />
+                                                <span class="fw-bold h4">$@product.Price</span>
+                                                @* <br /> *@
+                                                @* <p class="text-muted small">@product.ShortDescription</p> *@
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
+                            else
+                            {
+                                <p class="text-center text-muted">No hay productos disponibles.</p>
+                            }
+                            <!-- Productos -->
+
                         </div>
                     </div>
                 </div>

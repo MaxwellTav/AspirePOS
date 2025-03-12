@@ -27,8 +27,21 @@ namespace Aspire_POS.Controllers
         public async Task<IActionResult> Index()
         {
             InitializeViewBags(true, true, true);
-            //CashRegisterMainModel model = await _cashRegister.GetCashRegisterAsync();
-            return View();
+
+            var products = await _cashRegister.GetProductsAsync();
+
+            UserModel user = new()
+            {
+                //Aquí se debería obtener el usuario actual, se quedará pendiente.
+            };
+
+            var model = new CashRegisterMainModel
+            {
+                CurrentUser = user,
+                CashRegisters = products
+            };
+
+            return View(model);
         }
 
         public IActionResult AdminCashier()

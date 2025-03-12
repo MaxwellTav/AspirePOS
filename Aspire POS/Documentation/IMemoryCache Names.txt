@@ -41,11 +41,16 @@ ________________________________________________________________________________
 2 • LoginCredentials - Guarda la clase "LoginViewModel" obtenida para el uso de la clase "AspNetUserModel".
 
 //Clase:
-public class AspNetUserModel
+public class LoginViewModel
 {
-    public string Id { get; set; }
+    [Required(ErrorMessage = "El Usuario es obligatorio")]
     public string UserName { get; set; }
-    public string Email { get; set; }
+
+    [Required(ErrorMessage = "La Contraseña es obligatoria")]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+
+    public bool RememberMe { get; set; }
 }
 
 //Tabla
