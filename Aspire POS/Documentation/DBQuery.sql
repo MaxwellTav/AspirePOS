@@ -118,4 +118,9 @@ CREATE TABLE PathTable (
 );
 
 INSERT INTO PathTable (AuthPathName, AuthPath, Description, UpdatedAt) 
-VALUES ('Users', '/wp-json/wp/v2/users', 'Obtiene todos los usuarios registrados en WordPress', GETDATE());
+VALUES ('Products', 'wp-json/wc/v3/products', 'Obtiene todos los productos registrados en WooComerce', GETDATE());
+
+
+Select * From PathTable
+
+Select * From HostCredentials;
