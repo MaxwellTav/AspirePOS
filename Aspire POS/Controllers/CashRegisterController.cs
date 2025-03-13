@@ -19,6 +19,34 @@ namespace Aspire_POS.Controllers
             _cache = cache;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ProcesarOrden([FromBody] OrderRequestModel orden)
+        {
+            if (orden == null || orden.Productos.Count == 0)
+            {
+                Console.WriteLine("⚠️ La orden está vacía o malformada.");
+                return BadRequest("La orden no puede estar vacía.");
+            }
+
+            Console.WriteLine($"📥 Orden recibida con estado: {orden.Estado}");  // <-- Verifica que llega "on-hold"
+
+            foreach (var item in orden.Productos)
+            {
+                Console.WriteLine($"🆔 Producto ID: {item.ProductId}, Cantidad: {item.Quantity}");
+            }
+
+            bool resultado = await _cashRegister.ProcesarOrdenAsync(orden);
+
+            if (!resultado)
+            {
+                Console.WriteLine("❌ Error al enviar la orden a WooCommerce.");
+                return StatusCode(500, "Error al guardar la orden en WooCommerce");
+            }
+
+            Console.WriteLine("✅ Orden enviada a WooCommerce correctamente.");
+            return Ok(new { mensaje = "Orden guardada en WooCommerce correctamente" });
+        }
+
         #region Create
 
         #endregion

@@ -124,26 +124,25 @@
             <!-- Panel de Productos -->
             <div class="col-productos">
                 <div class="card">
-                    <div class="card-header text-center bg-primary text-white">
-                        <h5>Productos</h5>
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <h5 class="m-0">Productos</h5>
+                        <input type="text" id="busquedaProducto" class="form-control w-25 ms-auto" placeholder="Buscar producto..." onkeyup="filtrarProductos()">
                     </div>
+
                     <div class="card-body scrollable">
-                        <div class="row g-2">
-                           
+                        <div class="row g-2" id="listaProductos">
+
                             <!-- Productos -->
                             @if (Model.CashRegisters != null && Model.CashRegisters.Any())
                             {
                                 @foreach (var product in Model.CashRegisters)
                                 {
-                                    <div class="col-6 col-md-4 col-lg-3">
-                                        <div class="card p-2 product-card">
+                                    <div class="col-6 col-md-4 col-lg-3 producto" data-nombre="@product.Name.ToLower()">
+                                        <div class="card p-2 product-card" onclick="agregarAlCarrito(@product.Id, '@product.Name', @product.Price, '@product.Images.FirstOrDefault()?.Src')">
                                             <img src="@product.Images.FirstOrDefault()?.Src" class="card-img-top" alt="Producto">
                                             <div class="card-body p-1">
                                                 <h5 class="card-title">@product.Name</h5>
-                                                <br />
                                                 <span class="fw-bold h4">$@product.Price</span>
-                                                @* <br /> *@
-                                                @* <p class="text-muted small">@product.ShortDescription</p> *@
                                             </div>
                                         </div>
                                     </div>
@@ -163,40 +162,39 @@
             <!-- Panel del Carrito -->
             <div class="col-carrito">
                 <div class="card">
-                    <div class="card-header bg-danger text-white text-center">
-                        <h5>Carrito</h5>
+                    <div class="card-header bg-danger text-white d-flex align-items-center">
+                        <h5 class="m-0">Carrito</h5>
+                        <button class="btn btn-light ms-auto" onclick="ponerCarritoEnEspera()">
+                            <i class="fas fa-clock"></i> Poner Carrito en espera
+                        </button>
                     </div>
+
                     <div class="card-body scrollable" style="max-height: calc(100vh - 300px);">
-                        @for (int i = 0; i < 7; i++)
-                        {
-                            <div class="d-flex align-items-center border p-2">
-                                <img src="https://placehold.co/80" class="me-3" alt="Producto">
-                                <div class="flex-grow-1">
-                                    <h5>Producto @(i + 1)</h5>
-                                    <input type="number" value="1" min="1" class="form-control form-control-sm w-25 d-inline ms-2" placeholder="Cantidad">
-                                </div>
-                                <button class="btn btn-app bg-danger ms-2"><i class="fas fa-times"></i></button>
-                            </div>
-                        }
+                        <div id="carrito-items">
+                            <p class="text-center text-muted">El carrito está vacío.</p>
+                        </div>
                     </div>
 
                     <!-- Footer Fijo del Carrito -->
                     <div class="fixed-bottom-panel">
                         <div class="d-flex justify-content-between">
                             <span class="fw-bold">Subtotal:</span>
-                            <span>$1000</span>
+                            <span id="subtotal">$0.00</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span class="fw-bold">Total:</span>
-                            <span class="h3">$1000</span>
+                            <span id="total" class="h3">$0.00</span>
                         </div>
+
                         <div class="d-flex justify-content-center">
                             <div class="btn-group btn-group-lg">
-                                <button type="button" class="btn btn-app bg-gradient-danger"><i class="fas fa-store-slash"></i>Limpiar</button>
+                                <button type="button" class="btn btn-app bg-gradient-danger" onclick="limpiarCarrito()"><i class="fas fa-store-slash"></i> Limpiar</button>                                
                                 <button type="button" class="btn btn-app bg-gradient-warning"><i class="fas fa-percentage"></i>Descuento</button>
                                 <button type="button" class="btn btn-app bg-gradient-secondary"><i class="fas fa-plane"></i>Envío</button>
-                                <button type="button" class="btn btn-app bg-gradient-info"><i class="fas fa-save"></i>Guardar</button>
-                                <button type="button" class="btn btn-app bg-gradient-success"><i class="fas fa-money-bill-wave"></i><h6>• Pagar •</h6></button>
+                                <button type="button" class="btn btn-app bg-gradient-info"><i class="fas fa-user"></i>Cliente</button>
+                                <button type="button" class="btn btn-app bg-gradient-success" onclick="procesarPago()">
+                                    <i class="fas fa-money-bill-wave"></i>Pagar
+                                </button>
                             </div>
                         </div>
 
@@ -208,57 +206,205 @@
 
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let carrito = [];
+    
+    function agregarAlCarrito(id, nombre, precio, imagen) {
+        let productoExistente = carrito.find(p => p.id === id);
+
+        if (productoExistente) {
+            productoExistente.cantidad += 1;
+        } else {
+            carrito.push({ id: id, nombre: nombre, precio: precio, cantidad: 1, imagen: imagen });
+        }
+
+        console.log("🛒 Carrito actualizado:", carrito);
+        actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+        let carritoHTML = "";
+        let total = 0;
+
+        carrito.forEach((producto, index) => {
+            let subtotal = producto.precio * producto.cantidad;
+            total += subtotal;
+
+            carritoHTML += `
+                <div class="d-flex align-items-center border p-2">
+                    <img src="${producto.imagen}" class="me-3" style="width: 50px; height: 50px;" alt="Producto">
+                    <div class="flex-grow-1">
+                        <h6>${producto.nombre}</h6>
+                        <input type="number" value="${producto.cantidad}" min="1" class="form-control form-control-sm w-25 d-inline ms-2"
+                               onchange="cambiarCantidad(${index}, this.value)">
+                        <span class="fw-bold">$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <button class="btn btn-danger ms-2" onclick="eliminarDelCarrito(${index})"><i class="fas fa-times"></i></button>
+                </div>
+            `;
+        });
+
+        $("#carrito-items").html(carritoHTML);
+        $("#subtotal").text(`$${total.toFixed(2)}`);
+        $("#total").text(`$${total.toFixed(2)}`);
+
+        let audio = new Audio('/fxs/beep.mp3');
+        audio.volume = 0.35;
+        audio.play();
+    }
+
+    function cambiarCantidad(index, nuevaCantidad) {
+        carrito[index].cantidad = parseInt(nuevaCantidad);
+        actualizarCarrito();
+    }
+
+    function eliminarDelCarrito(index) {
+        carrito.splice(index, 1);
+        actualizarCarrito();
+    }
+
+    function limpiarCarrito() {
+        carrito = [];
+        actualizarCarrito();
+
+        Swal.fire("Carrito vacío", "Se han eliminado todos los productos.", "success");
+    }
+
+
+    function procesarPago() {
+        if (carrito.length === 0) {
+            Swal.fire("Error", "No hay productos en el carrito", "error");
+            return;
+        }
+        
+        let orden = {
+            estado: "processing",
+            productos: carrito.map(p => ({
+                product_id: p.id,
+                quantity: p.cantidad
+            }))
+        };
+
+        console.log("📦 JSON enviado:", JSON.stringify(orden));
+
+        $.ajax({
+            url: "/CashRegister/ProcesarOrden",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(orden),
+            success: function (response) {
+                Swal.fire("Éxito", "Compra realizada con éxito", "success");
+                carrito = [];
+                actualizarCarrito();
+            },
+            error: function (xhr, status, error) {
+                console.error("❌ Error en la petición AJAX:", xhr.responseText);
+                Swal.fire("Error", "No se pudo procesar la compra", "error");
+            }
+        });
+    }
+
     function verProducto() {
         Swal.fire('Producto seleccionado', 'Aquí puedes agregar detalles del producto', 'info');
     }
 
-    document.getElementById('menuCajaButton').addEventListener('click', function (event) {
-        event.preventDefault();
+    $(document).ready(function () {
+        $("#menuCajaButton").click(function (event) {
+            event.preventDefault();
 
-        Swal.fire({
-            title: 'Menú del cajero',
-            html: `
-                        <div style="text-align: left;">
-                            <div class="info-text"><strong>Hora de inicio de la jornada:</strong> 08:00 AM</div>
-                            <div class="info-text"><strong>Órdenes realizadas:</strong> 12</div>
-                            <div class="info-text"><strong>Órdenes pendientes:</strong> 5</div>
-                            <div class="info-text"><strong>Ventas totales:</strong> $500</div>
-                            <div class="info-text"><strong>Código de la caja:</strong> C123</div>
-                            <div class="info-text"><strong>Nombre del cajero:</strong> Juan Pérez</div>
-                            <div class="info-text"><strong>Cantidad de efectivo en la caja:</strong> $300</div>
-                        </div>
-                        <div class="btn-menu-container">
-                            <button id="descargarReporte" class="btn btn-primary btn-menu">Descargar Reporte</button>
-                            <button id="verTodasOrdenes" class="btn btn-primary btn-menu">Ver Todas las Órdenes</button>
-                            <button id="irALogin" class="btn btn-secondary btn-menu">Cierre de sesión</button>
-                            <button id="arqueoCaja" class="btn btn-warning btn-menu">Arqueo</button>
-                            <button id="cierreCaja" class="btn btn-danger btn-menu">Cierre de Caja</button>
-                        </div>
-                    `,
-            showCloseButton: true,
-            showConfirmButton: false
-        });
+            Swal.fire({
+                title: 'Menú del cajero',
+                html: `
+                    <div style="text-align: left;">
+                        <div class="info-text"><strong>Hora de inicio de la jornada:</strong> 08:00 AM</div>
+                        <div class="info-text"><strong>Órdenes realizadas:</strong> 12</div>
+                        <div class="info-text"><strong>Órdenes pendientes:</strong> 5</div>
+                        <div class="info-text"><strong>Ventas totales:</strong> $500</div>
+                        <div class="info-text"><strong>Código de la caja:</strong> C123</div>
+                        <div class="info-text"><strong>Nombre del cajero:</strong> Juan Pérez</div>
+                        <div class="info-text"><strong>Cantidad de efectivo en la caja:</strong> $300</div>
+                    </div>
+                    <div class="btn-menu-container">
+                        <button id="descargarReporte" class="btn btn-primary btn-menu">Descargar Reporte</button>
+                        <button id="verTodasOrdenes" class="btn btn-primary btn-menu">Ver Todas las Órdenes</button>
+                        <button id="irALogin" class="btn btn-secondary btn-menu">Cierre de sesión</button>
+                        <button id="arqueoCaja" class="btn btn-warning btn-menu">Arqueo</button>
+                        <button id="cierreCaja" class="btn btn-danger btn-menu">Cierre de Caja</button>
+                    </div>
+                `,
+                showCloseButton: true,
+                showConfirmButton: false
+            });
 
-        // Agregar eventos a los botones
-        document.getElementById('descargarReporte').addEventListener('click', function () {
-            Swal.fire('Reporte descargado', '', 'success');
-        });
+            $("#descargarReporte").click(function () {
+                Swal.fire('Reporte descargado', '', 'success');
+            });
 
-        document.getElementById('verTodasOrdenes').addEventListener('click', function () {
-            Swal.fire('Mostrando todas las órdenes', '', 'info');
-        });
+            $("#verTodasOrdenes").click(function () {
+                Swal.fire('Mostrando todas las órdenes', '', 'info');
+            });
 
-        document.getElementById('arqueoCaja').addEventListener('click', function () {
-            Swal.fire('Realizando arqueo de caja...', '', 'warning');
-        });
+            $("#arqueoCaja").click(function () {
+                Swal.fire('Realizando arqueo de caja...', '', 'warning');
+            });
 
-        document.getElementById('cierreCaja').addEventListener('click', function () {
-            Swal.fire('Cerrando la caja...', '', 'error');
-        });
+            $("#cierreCaja").click(function () {
+                Swal.fire('Cerrando la caja...', '', 'error');
+            });
 
-        document.getElementById('irALogin').addEventListener('click', function () {
-            window.location.href = '@Url.Action("Index", "Login")';
+            $("#irALogin").click(function () {
+                window.location.href = '@Url.Action("Index", "Login")';
+            });
         });
     });
+
+    function filtrarProductos() {
+        let input = document.getElementById("busquedaProducto").value.toLowerCase();
+        let productos = document.querySelectorAll(".producto");
+        
+        productos.forEach(producto => {
+            let nombre = producto.getAttribute("data-nombre");
+            if (nombre.includes(input)) {
+                producto.style.display = "block";
+            } else {
+                producto.style.display = "none";
+            }
+        });
+    }
+
+    function ponerCarritoEnEspera() {
+        if (carrito.length === 0) {
+            Swal.fire("Error", "No hay productos en el carrito", "error");
+            return;
+        }
+
+        let orden = {
+            estado: "on-hold",
+            productos: carrito.map(p => ({
+                product_id: p.id,
+                quantity: p.cantidad
+            }))
+        };
+
+        console.log("📦 JSON enviado para espera:", JSON.stringify(orden));
+
+        $.ajax({
+            url: "/CashRegister/ProcesarOrden",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(orden),
+            success: function (response) {
+                Swal.fire("Carrito en espera", "La orden ha sido guardada en WooCommerce.", "success");
+                carrito = [];
+                actualizarCarrito();
+            },
+            error: function (xhr, status, error) {
+                console.error("❌ Error en la petición AJAX:", xhr.responseText);
+                Swal.fire("Error", "No se pudo guardar el carrito en espera", "error");
+            }
+        });
+    }
+
+
 </script>
