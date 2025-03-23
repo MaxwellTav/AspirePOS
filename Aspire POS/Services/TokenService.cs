@@ -62,10 +62,12 @@ public class TokenService
         {
             var httpClient = _httpClientFactory.CreateClient();
 
-            _cache.TryGetValue("HostCredentials", out HostCredentialsModel hostCredentials);
+            _cache.TryGetValue("ConfigMain", out ConfigMainModel configCache);
+            HostCredentialsModel hostCredentials = configCache.HostCredentials;
+
             _cache.TryGetValue("LoginCredentials", out LoginViewModel loginModel);
 
-            string refreshUrl = hostCredentials.ApiUrl + "wp-json/jwt-auth/v1/token";
+            string refreshUrl = hostCredentials.ApiUrl + PathsModel.GETTOKEN;
 
             var content = new FormUrlEncodedContent(new[]
             {

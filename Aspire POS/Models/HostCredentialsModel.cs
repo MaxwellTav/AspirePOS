@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aspire_POS.Models
 {
@@ -13,6 +14,8 @@ namespace Aspire_POS.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 
+
+        [ForeignKey("UserId")]
         public virtual AspNetUserModel User { get; set; }
     }
 

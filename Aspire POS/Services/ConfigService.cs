@@ -46,20 +46,17 @@ namespace Aspire_POS.Services
         {
             _cache.TryGetValue("ConfigMain", out ConfigMainModel configCache);
 
-            // 🔹 Obtener `UserId` directamente desde el modelo
             string userId = configCache.HostCredentials.UserId;
 
             if (string.IsNullOrEmpty(userId))
-                return; // 🔹 Salir si el usuario no tiene un ID válido
+                return;
 
-            // 🔹 Buscar HostCredentials correspondiente a ese usuario
             var hostCredentials = await _context.HostCredentials
                 .Where(h => h.UserId == userId)
                 .FirstOrDefaultAsync();
 
             if (hostCredentials != null)
             {
-                // 🔹 Actualizar los valores
                 hostCredentials.ClientKey = model.HostCredentials.ClientKey;
                 hostCredentials.ClientSecret = model.HostCredentials.ClientSecret;
                 hostCredentials.ApiUrl = model.HostCredentials.ApiUrl;
@@ -72,16 +69,16 @@ namespace Aspire_POS.Services
 
         public async Task UpdateTokenAsync(string userName, string newToken)
         {
-            // 🔹 Obtener el UserId basado en el UserName
             var userId = await _context.Users
                 .Where(u => u.UserName == userName)
                 .Select(u => u.Id)
                 .FirstOrDefaultAsync();
 
             if (string.IsNullOrEmpty(userId))
-                return; // 🔹 Salir si el usuario no existe
+            {
+                return;
+            }
 
-            // 🔹 Obtener las credenciales correspondientes al usuario autenticado
             var credentials = await _context.HostCredentials
                 .Where(h => h.UserId == userId)
                 .FirstOrDefaultAsync();
@@ -91,9 +88,12 @@ namespace Aspire_POS.Services
                 credentials.TokenEndpoint = newToken;
                 credentials.UpdatedAt = DateTime.UtcNow;
 
+                _context.Entry(credentials).State = EntityState.Modified;
+
                 await _context.SaveChangesAsync();
             }
         }
+
 
     }
 }
